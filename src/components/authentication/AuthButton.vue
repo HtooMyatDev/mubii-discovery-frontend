@@ -1,12 +1,12 @@
 <template>
   <div class="authbar">
     <span v-if="!isLogin" class="">
-      <button class="btn">
-        <a href="/login">Login</a>
-      </button>
-      <button class="btn">
-        <a href="/signup">Sign Up</a>
-      </button>
+      <a href="/login">
+        <button class="btn">Login</button>
+      </a>
+      <a href="/signup">
+        <button class="btn">Sign Up</button>
+      </a>
     </span>
     <span v-else> LOGGED IN! </span>
   </div>
@@ -62,7 +62,7 @@ import { isLogin } from './state'
   transition: all 0.7s;
 }
 
-.btn:hover a {
+.btn:hover {
   color: #fff;
 }
 
@@ -75,7 +75,7 @@ import { isLogin } from './state'
   background: var(--button-item-active);
   transition: background 0s;
 }
-.btn a {
+.btn {
   color: var(--button-bg-color);
   transition: 0.5s linear;
 }
