@@ -1,7 +1,16 @@
 <template>
-  <div>Login Page</div>
+  <div class="wrapper">
+    <LoginForm />
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import LoginForm from '@/components/authentication/LoginForm.vue'
+</script>
 
-<style scoped></style>
+<style scoped>
+.wrapper {
+  background-color: var(--sidebar-bg-color);
+  height: 100vh;
+}
+</style>

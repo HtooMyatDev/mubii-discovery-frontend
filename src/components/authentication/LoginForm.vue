@@ -2,12 +2,8 @@
   <div class="signup-form">
     <form action="" @submit.prevent="">
       <div class="header-wrapper">
-        <h2 class="header">Welcome to Mubii Discovery!</h2>
-        <h3 class="header">Register Form</h3>
-      </div>
-      <div class="form-group">
-        <label for="">Name</label>
-        <input type="text" name="name" placeholder="Enter your name..." />
+        <h2 class="header">Welcome back to Mubii Discovery!</h2>
+        <h3 class="header">Login Form</h3>
       </div>
 
       <div class="form-group">
@@ -20,20 +16,18 @@
         <input type="password" name="password" placeholder="Enter your password..." />
       </div>
 
-      <div class="form-group">
-        <label for="">Retype Password</label>
-        <input type="password" name="confirmPassword" placeholder="Enter your password again..." />
-      </div>
-
-      <div class="form-group">
-        <button type="submit" class="btn">Register</button>
+      <div class="form-group button-group">
+        <button type="submit" class="btn">Login</button>
+        <span style="margin-bottom: 1.2em;"> or </span>
+        <button type="button" class="google btn">Continute with Google</button>
+        <button type="button" class="github btn">Continute with Github</button>
       </div>
 
       <div class="login-group">
-        <span style="margin-right: 5px; color: black">Already have an account?</span>
+        <span style="margin-right: 5px; color: black">Don't have an account yet?</span>
         <div>
-          <a href="/login">
-            <p>Login</p>
+          <a href="/signup">
+            <p>Register</p>
           </a>
         </div>
       </div>
@@ -113,6 +107,13 @@
   justify-content: center;
 }
 
+.button-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .login-group p {
   color: var(--sidebar-bg-color);
   font-weight: 600;
@@ -122,7 +123,7 @@
   white-space: nowrap;
   border-right: 1px solid var(--sidebar-bg-color);
 
-  animation: typing 2s steps(7) forwards;
+  animation: typing 2s steps(9) forwards;
 }
 
 @keyframes typing {
@@ -144,6 +145,7 @@
   cursor: pointer;
 
   padding: 12px 10px;
+  margin-bottom: 1.2em;
   width: 100%;
   font-size: 15px;
   transition: 0.2s ease-in-out;
