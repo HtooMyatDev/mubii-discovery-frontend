@@ -8,8 +8,8 @@
       <span v-else>MD</span>
     </h2>
 
-    <SidebarLink to="/home" icon="fas fa-home">Home</SidebarLink>
-    <SidebarLink to="/movies" icon="fas fa-film">Movie</SidebarLink>
+    <SidebarLink to="/" icon="fas fa-home">Home</SidebarLink>
+    <SidebarLink to="/about" icon="fas fa-film">Movie</SidebarLink>
     <SidebarLink to="/watch-list" icon="fas fa-list">Watch List</SidebarLink>
 
     <div class="collapse-icon" @click="toggleSidebar" :class="{ 'rotate-180': collapsed }">

@@ -1,8 +1,12 @@
 <template>
   <div class="authbar">
     <span v-if="!isLogin" class="">
-      <button class="login btn">Login</button>
-      <button class="signup btn">Sign Up</button>
+      <button class="btn">
+        <a href="/login">Login</a>
+      </button>
+      <button class="btn">
+        <a href="/signup">Sign Up</a>
+      </button>
     </span>
     <span v-else> LOGGED IN! </span>
   </div>
@@ -37,7 +41,7 @@ import { isLogin } from './state'
   background: white;
   z-index: 1;
   margin: 8px;
-  transition: 0.5s linear;
+
   font-size: 17px;
   border-radius: 6px;
   font-weight: 500;
@@ -58,7 +62,7 @@ import { isLogin } from './state'
   transition: all 0.7s;
 }
 
-.btn:hover {
+.btn:hover a {
   color: #fff;
 }
 
@@ -70,5 +74,9 @@ import { isLogin } from './state'
 .btn:active:before {
   background: var(--button-item-active);
   transition: background 0s;
+}
+.btn a {
+  color: var(--button-bg-color);
+  transition: 0.5s linear;
 }
 </style>
