@@ -7,22 +7,42 @@
       </div>
       <div class="form-group">
         <label for="">Name</label>
-        <input type="text" name="name" placeholder="Enter your name..." />
+
+        <div class="input-group">
+          <i class="fa-solid fa-user"></i>
+          <input type="text" name="name" placeholder="Enter your name..." />
+        </div>
       </div>
 
       <div class="form-group">
         <label for="">Email</label>
-        <input type="email" name="email" placeholder="Enter your email..." />
+
+        <div class="input-group">
+          <i class="fa-solid fa-envelope"></i>
+          <input type="email" name="email" placeholder="Enter your email..." />
+        </div>
       </div>
 
       <div class="form-group">
         <label for="">Password</label>
-        <input type="password" name="password" placeholder="Enter your password..." />
+
+        <div class="input-group">
+          <i class="fa-solid fa-lock"></i>
+          <input type="password" name="password" placeholder="Enter your password..." />
+        </div>
       </div>
 
       <div class="form-group">
         <label for="">Retype Password</label>
-        <input type="password" name="confirmPassword" placeholder="Enter your password again..." />
+
+        <div class="input-group">
+          <i class="fa-solid fa-lock"></i>
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Enter your password again..."
+          />
+        </div>
       </div>
 
       <div class="form-group">
@@ -87,12 +107,9 @@
 .form-group input {
   width: 100%;
   padding: 12px 10px;
-  border-radius: 12px;
-  border: 2px solid white;
+ border: none;
   outline: none;
-  transition: 0.5s ease;
 
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
 
 .form-group input::placeholder {
@@ -100,12 +117,24 @@
   font-weight: 600;
 }
 
-.form-group input:focus {
+.input-group:focus-within {
   border-bottom: 2px solid var(--sidebar-bg-color);
   transition: 0.5s ease;
   box-shadow:
     rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+
+.input-group {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  border-radius: 12px;
+  border: 2px solid white;
+  transition: 0.5s ease;
+
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
 
 .login-group {
@@ -120,7 +149,7 @@
   margin-inline: auto;
   overflow: hidden;
   white-space: nowrap;
-  border-right: 1px solid var(--sidebar-bg-color);
+  border-right: 12px solid var(--sidebar-bg-color);
 
   animation: typing 2s steps(7) forwards;
 }

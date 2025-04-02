@@ -8,19 +8,41 @@
 
       <div class="form-group">
         <label for="">Email</label>
-        <input type="email" name="email" placeholder="Enter your email..." />
+        <div class="input-group">
+          <i class="fa-solid fa-envelope"></i>
+          <input
+            type="email"
+            v-model="userData.email"
+            name="email"
+            placeholder="Enter your email..."
+          />
+        </div>
       </div>
 
       <div class="form-group">
         <label for="">Password</label>
-        <input type="password" name="password" placeholder="Enter your password..." />
+        <div class="input-group">
+          <i class="fa-solid fa-lock"></i>
+          <input
+            type="password"
+            v-model="userData.password"
+            name="password"
+            placeholder="Enter your password..."
+          />
+        </div>
       </div>
 
       <div class="form-group button-group">
-        <button type="submit" class="btn">Login</button>
-        <span style="margin-bottom: 1.2em;"> or </span>
-        <button type="button" class="google btn">Continute with Google</button>
-        <button type="button" class="github btn">Continute with Github</button>
+        <button type="submit" @click="loginProcess()" class="btn">Login</button>
+        <span style="margin-bottom: 1.2em; color: gray"> or </span>
+        <div class="btn-wrapper">
+          <button type="button" class="google social-btn">
+            <i class="fa-brands fa-google"></i>
+          </button>
+          <button type="button" class="github social-btn">
+            <i class="fa-brands fa-github"></i>
+          </button>
+        </div>
       </div>
 
       <div class="login-group">
@@ -35,7 +57,32 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import axios from 'axios'
+import { ref } from 'vue'
+const userData = ref({
+  email: '',
+  password: '',
+})
+
+const validation = ref({
+  email: false,
+  password: false,
+})
+const loginProcess = () => {
+  validation.value.email = userData.value.email === '' ? true : false
+  validation.value.password = userData.value.password === '' ? true : false
+
+  axios
+    .post('http://localhost:8000/api/login', userData.value)
+    .then((response) => {
+      console.log(response.data)
+    })
+    .catch((error) => {
+      console.error('There was an error!', error)
+    })
+}
+</script>
 
 <style scoped>
 .header {
@@ -81,12 +128,9 @@
 .form-group input {
   width: 100%;
   padding: 12px 10px;
-  border-radius: 12px;
-  border: 2px solid white;
+  border: none;
   outline: none;
   transition: 0.5s ease;
-
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
 }
 
 .form-group input::placeholder {
@@ -94,12 +138,47 @@
   font-weight: 600;
 }
 
-.form-group input:focus {
+.input-group:focus-within {
   border-bottom: 2px solid var(--sidebar-bg-color);
   transition: 0.5s ease;
   box-shadow:
     rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+.input-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 12px;
+  border: 2px solid white;
+  transition: 0.5s ease;
+
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+}
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.btn-wrapper .social-btn {
+  background-color: white;
+  color: var(--sidebar-bg-color);
+
+  border: 2px solid var(--sidebar-bg-color);
+  border-radius: 15px;
+
+  cursor: pointer;
+
+  padding: 15px 45px;
+  width: 100%;
+  font-size: 1.1em;
+  transition: 0.2s ease-in-out;
+}
+.btn-wrapper .social-btn:hover {
+  background-color: var(--sidebar-bg-color);
+  color: white;
 }
 
 .login-group {
@@ -121,7 +200,7 @@
   margin-inline: auto;
   overflow: hidden;
   white-space: nowrap;
-  border-right: 1px solid var(--sidebar-bg-color);
+  border-right: 12px solid var(--sidebar-bg-color);
 
   animation: typing 2s steps(9) forwards;
 }
@@ -135,6 +214,7 @@
     width: 100%;
   }
 }
+
 .btn {
   background-color: white;
   color: var(--sidebar-bg-color);
