@@ -6,6 +6,8 @@
         <h3 class="header">Login Form</h3>
       </div>
 
+      <AppAlert type="error" message="The credentials do not match" v-if="!status" />
+
       <div class="form-group">
         <label for="">Email</label>
         <div class="input-group">
@@ -17,6 +19,7 @@
             placeholder="Enter your email..."
           />
         </div>
+        <small v-if="validation.email" class="text-danger">The email field is required</small>
       </div>
 
       <div class="form-group">
@@ -30,6 +33,7 @@
             placeholder="Enter your password..."
           />
         </div>
+        <small v-if="validation.password" class="text-danger">The password field is required</small>
       </div>
 
       <div class="form-group button-group">
@@ -60,10 +64,14 @@
 <script setup>
 import axios from 'axios'
 import { ref } from 'vue'
+import AppAlert from '../AppAlert.vue'
+
 const userData = ref({
   email: '',
   password: '',
 })
+
+const status = ref(true)
 
 const validation = ref({
   email: false,
@@ -73,14 +81,18 @@ const loginProcess = () => {
   validation.value.email = userData.value.email === '' ? true : false
   validation.value.password = userData.value.password === '' ? true : false
 
-  axios
-    .post('http://localhost:8000/api/login', userData.value)
-    .then((response) => {
-      console.log(response.data)
-    })
-    .catch((error) => {
-      console.error('There was an error!', error)
-    })
+  if (!validation.value.email && !validation.value.password) {
+    axios
+      .post('http://localhost:8000/api/login', userData.value)
+      .then((response) => {
+        status.value = response.data['status'] == 'success' ? true : false
+        userData.value.password = ''
+      })
+      .catch((error) => {
+        console.error('There was an error!', error)
+        userData.value.password = ''
+      })
+  }
 }
 </script>
 
@@ -234,5 +246,9 @@ const loginProcess = () => {
 .btn:hover {
   background-color: var(--sidebar-bg-color);
   color: white;
+}
+
+.text-danger {
+  color: red;
 }
 </style>
