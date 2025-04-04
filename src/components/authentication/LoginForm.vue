@@ -65,6 +65,12 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import AppAlert from '../AppAlert.vue'
+import { useUserStore } from '../../store/store'
+import { useRouter } from 'vue-router'
+
+const store = useUserStore()
+
+const router = useRouter()
 
 const userData = ref({
   email: '',
@@ -85,11 +91,13 @@ const loginProcess = () => {
     axios
       .post('http://localhost:8000/api/login', userData.value)
       .then((response) => {
-        status.value = response.data['status'] == 'success' ? true : false
-        userData.value.password = ''
+        store.setUserData(response.data.user)
+        store.setToken(response.data.token)
+        router.push({ name: 'home' })
       })
       .catch((error) => {
-        console.error('There was an error!', error)
+        console.log(error)
+        status.value = false
         userData.value.password = ''
       })
   }

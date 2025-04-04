@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar" :style="{ width: sidebarWidth }">
+  <nav class="side-bar-view" :style="{ width: sidebarWidth }">
     <h2>
       <span v-if="!collapsed"
         >Mubii <br />
@@ -12,7 +12,7 @@
     <SidebarLink to="/about" icon="fas fa-film">Movie</SidebarLink>
     <SidebarLink to="/watch-list" icon="fas fa-list">Watch List</SidebarLink>
 
-    <div class="collapse-icon" @click="toggleSidebar" :class="{ 'rotate-180': collapsed }">
+    <div class="collapse-icon" @click="toggleSidebar" :class="{ 'rotate-180-arrow': collapsed }">
       <i class="fas fa-angle-double-left"></i>
     </div>
   </nav>
@@ -37,7 +37,7 @@ h2 {
   margin-bottom: 1em;
 }
 
-.navbar {
+.side-bar-view {
   color: white;
   background-color: var(--sidebar-bg-color);
 
@@ -56,6 +56,7 @@ h2 {
 }
 
 .collapse-icon {
+  cursor:pointer;
   position: absolute;
   bottom: 0;
   right: 0;
@@ -66,7 +67,7 @@ h2 {
   transition: 0.4s linear;
 }
 
-.rotate-180 {
+.rotate-180-arrow {
   transform: rotate(180deg);
   transition: 0.2s linear;
 }
