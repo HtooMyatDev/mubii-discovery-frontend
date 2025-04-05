@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 export const useUserStore = defineStore('user', () => {
   // State
   const userData = ref({})
-  const token = ref()
+  const token = ref(null)
 
 
   // Getters
@@ -20,5 +20,12 @@ export const useUserStore = defineStore('user', () => {
   const setToken = (data) => {
     token.value = data
   }
-  return { userData, token, setUserData, setToken, getUserData, getToken }
+
+  const logout = () => {
+    setToken(null)
+    setUserData({})
+  }
+  return { userData, token, setUserData, setToken, getUserData, getToken, logout }
+}, {
+  persist: true
 })

@@ -1,6 +1,6 @@
 <template>
   <div class="signup-form">
-    <form action="" @submit.prevent="">
+    <form @submit.prevent="">
       <div class="header-wrapper">
         <h2 class="header">Welcome to Mubii Discovery!</h2>
         <h3 class="header">Register Form</h3>
@@ -10,8 +10,9 @@
 
         <div class="input-group">
           <i class="fa-solid fa-user"></i>
-          <input type="text" name="name" placeholder="Enter your name..." />
+          <input type="text" name="name" placeholder="Enter your name..." v-model="userData.name" />
         </div>
+        <small v-if="validation.name" class="text-error">The name field is required</small>
       </div>
 
       <div class="form-group">
@@ -19,8 +20,14 @@
 
         <div class="input-group">
           <i class="fa-solid fa-envelope"></i>
-          <input type="email" name="email" placeholder="Enter your email..." />
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your email..."
+            v-model="userData.email"
+          />
         </div>
+        <small v-if="validation.email" class="text-error">The email field is required</small>
       </div>
 
       <div class="form-group">
@@ -28,12 +35,18 @@
 
         <div class="input-group">
           <i class="fa-solid fa-lock"></i>
-          <input type="password" name="password" placeholder="Enter your password..." />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your password..."
+            v-model="userData.password"
+          />
         </div>
+        <small v-if="validation.password" class="text-error">The password field is required</small>
       </div>
 
       <div class="form-group">
-        <label for="">Retype Password</label>
+        <label for="">Confirm Password</label>
 
         <div class="input-group">
           <i class="fa-solid fa-lock"></i>
@@ -41,12 +54,17 @@
             type="password"
             name="confirmPassword"
             placeholder="Enter your password again..."
+            v-model="userData.confirmPassword"
           />
         </div>
+        <small v-if="validation.confirmPassword" class="text-error"
+          >The password confirmation field is required.</small
+        >
+        <br />
       </div>
 
       <div class="form-group">
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn" @click="register()">Register</button>
       </div>
 
       <div class="login-group">
@@ -61,7 +79,69 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import axios from 'axios'
+import { ref, computed, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import AppAlert from '../AppAlert.vue'
+import { useUserStore } from '../../store/store'
+
+const store = useUserStore()
+const router = useRouter()
+const userData = ref({
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+})
+
+const validation = ref({
+  name: false,
+  email: false,
+  password: false,
+  confirmPassword: false,
+  samePassword: false,
+})
+
+const emptyFields = () => {
+  userData.value.password = ''
+  userData.value.confirmPassword = ''
+}
+
+function checkFormValidation() {
+  validation.value.name = userData.value.name === '' ? true : false
+  validation.value.email = userData.value.email === '' ? true : false
+  validation.value.password = userData.value.password === '' ? true : false
+  validation.value.confirmPassword = userData.value.confirmPassword === '' ? true : false
+  validation.value.samePassword =
+    userData.value.password === userData.value.confirmPassword ? true : false
+}
+
+const register = () => {
+  checkFormValidation()
+  if (
+    !validation.value.name &&
+    !validation.value.email &&
+    !validation.value.password &&
+    !validation.value.confirmPassword
+  ) {
+    axios
+      .post('http://localhost:8000/api/auth/register', userData.value)
+      .then((response) => {
+        store.setToken(response.data.token)
+        store.setUserData(response.data.user)
+
+        router.push({ name: 'home' })
+      })
+      .catch((error) => {
+        console.error(error)
+        alert('Registration failed!')
+      })
+  } else {
+    emptyFields()
+  }
+}
+</script>
 
 <style scoped>
 .header {
@@ -107,9 +187,8 @@
 .form-group input {
   width: 100%;
   padding: 12px 10px;
- border: none;
+  border: none;
   outline: none;
-
 }
 
 .form-group input::placeholder {
@@ -126,7 +205,7 @@
 }
 
 .input-group {
-  display:flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px 10px;
@@ -178,7 +257,8 @@
   transition: 0.2s ease-in-out;
 }
 
-.btn:hover {
+.btn:hover,
+.btn:focus {
   background-color: var(--sidebar-bg-color);
   color: white;
 }

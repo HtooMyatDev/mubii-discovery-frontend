@@ -1,6 +1,6 @@
 <template>
   <div class="signup-form">
-    <form action="" @submit.prevent="">
+    <form @submit.prevent="">
       <div class="header-wrapper">
         <h2 class="header">Welcome back to Mubii Discovery!</h2>
         <h3 class="header">Login Form</h3>
@@ -19,7 +19,7 @@
             placeholder="Enter your email..."
           />
         </div>
-        <small v-if="validation.email" class="text-danger">The email field is required</small>
+        <small v-if="validation.email" class="text-error">The email field is required</small>
       </div>
 
       <div class="form-group">
@@ -33,7 +33,7 @@
             placeholder="Enter your password..."
           />
         </div>
-        <small v-if="validation.password" class="text-danger">The password field is required</small>
+        <small v-if="validation.password" class="text-error">The password field is required</small>
       </div>
 
       <div class="form-group button-group">
@@ -89,7 +89,7 @@ const loginProcess = () => {
 
   if (!validation.value.email && !validation.value.password) {
     axios
-      .post('http://localhost:8000/api/login', userData.value)
+      .post('http://localhost:8000/api/auth/login', userData.value)
       .then((response) => {
         store.setUserData(response.data.user)
         store.setToken(response.data.token)
@@ -256,7 +256,5 @@ const loginProcess = () => {
   color: white;
 }
 
-.text-danger {
-  color: red;
-}
+
 </style>

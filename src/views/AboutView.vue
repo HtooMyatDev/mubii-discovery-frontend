@@ -10,7 +10,7 @@
     </p>
     <p>If you have any questions or feedback, please don't hesitate to reach out.</p>
     <p>Thank you for visiting our about page!</p>
-    <AuthButton style="margin: 1em 1.5em" />
+    <AuthButton style="margin: 1em 1.5em"/>
   </div>
 </template>
 

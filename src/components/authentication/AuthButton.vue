@@ -1,6 +1,6 @@
 <template>
   <div class="authbar">
-    <span v-if="!isLogin" class="">
+    <span class="" v-if="!isLogin">
       <a href="/login">
         <button class="btn">Login</button>
       </a>
@@ -8,12 +8,21 @@
         <button class="btn">Sign Up</button>
       </a>
     </span>
-    <span v-else> LOGGED IN! </span>
+    <span v-else>
+      <a href="">
+        <button @click="handleLogout()" class="btn">Logout</button>
+      </a>
+    </span>
   </div>
 </template>
 
 <script setup>
-import { isLogin } from './state'
+import { useUserStore } from '@/store/store'
+const store = useUserStore()
+const isLogin = store.getToken == null ? false : true
+const handleLogout = ()=>{
+  store.logout()
+}
 </script>
 
 <style>
