@@ -25,6 +25,16 @@ const router = createRouter({
       path: '/signup',
       name: 'signup',
       component: () => import('../views/authentication/SignupView.vue')
+    },
+    {
+      path: '/social-login-success',
+      name: 'SocialLoginSuccess',
+      component: () => import('../views/authentication/SocialLogin.vue')
+    },
+    {
+      path:'/social-login-failure',
+      name:'SocialLoginFailure',
+      component:()=>import('../views/authentication/SocialLogin.vue')
     }
   ],
 })

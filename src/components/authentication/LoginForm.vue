@@ -40,10 +40,10 @@
         <button type="submit" @click="loginProcess()" class="btn">Login</button>
         <span style="margin-bottom: 1.2em; color: gray"> or </span>
         <div class="btn-wrapper">
-          <button type="button" class="google social-btn">
+          <button type="button" @click.prevent="socialLogin('google')" class="google social-btn">
             <i class="fa-brands fa-google"></i>
           </button>
-          <button type="button" class="github social-btn">
+          <button type="button" @click.prevent="socialLogin('github')" class="github social-btn">
             <i class="fa-brands fa-github"></i>
           </button>
         </div>
@@ -83,6 +83,7 @@ const validation = ref({
   email: false,
   password: false,
 })
+
 const loginProcess = () => {
   validation.value.email = userData.value.email === '' ? true : false
   validation.value.password = userData.value.password === '' ? true : false
@@ -101,6 +102,10 @@ const loginProcess = () => {
         userData.value.password = ''
       })
   }
+}
+
+const socialLogin = async (provider) => {
+  window.location.href = `http://localhost:8000/auth/${provider}/redirect`
 }
 </script>
 
@@ -255,6 +260,4 @@ const loginProcess = () => {
   background-color: var(--sidebar-bg-color);
   color: white;
 }
-
-
 </style>

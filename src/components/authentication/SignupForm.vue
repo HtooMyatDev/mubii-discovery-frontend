@@ -81,7 +81,7 @@
 
 <script setup>
 import axios from 'axios'
-import { ref, computed, reactive } from 'vue'
+import { ref} from 'vue'
 import { useRouter } from 'vue-router'
 import AppAlert from '../AppAlert.vue'
 import { useUserStore } from '../../store/store'
@@ -176,7 +176,7 @@ const register = () => {
   background-color: white;
 }
 .form-group {
-  margin-bottom: 2em;
+  margin-bottom: 1em;
 }
 
 .form-group label {
