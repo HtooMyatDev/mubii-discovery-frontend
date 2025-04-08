@@ -7,6 +7,7 @@
     <p>Feel free to explore the site and reach out if you have any questions.</p>
     <p>We hope you enjoy your experience!</p>
     <AuthButton style="margin: 1em 1.5em" />
+
   </div>
 </template>
 

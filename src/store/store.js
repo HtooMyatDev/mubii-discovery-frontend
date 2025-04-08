@@ -5,7 +5,6 @@ export const useUserStore = defineStore('user', () => {
   const userData = ref({})
   const token = ref(null)
 
-
   // Getters
   const getUserData = computed(() => {
     return userData.value

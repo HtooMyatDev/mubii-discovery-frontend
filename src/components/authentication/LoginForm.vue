@@ -201,7 +201,9 @@ const socialLogin = async (provider) => {
   font-size: 1.1em;
   transition: 0.2s ease-in-out;
 }
-.btn-wrapper .social-btn:hover {
+.btn-wrapper .social-btn:hover,
+.social-btn:focus{
+  outline:none;
   background-color: var(--sidebar-bg-color);
   color: white;
 }
@@ -256,7 +258,8 @@ const socialLogin = async (provider) => {
   transition: 0.2s ease-in-out;
 }
 
-.btn:hover {
+.btn:hover,
+.btn:focus {
   background-color: var(--sidebar-bg-color);
   color: white;
 }
