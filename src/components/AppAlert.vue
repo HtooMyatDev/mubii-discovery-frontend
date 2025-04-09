@@ -1,6 +1,6 @@
 <template>
   <div
-    style="padding: 12px; margin: 15px 0; font-weight: bold"
+    style="padding: 12px; margin: 15px 0; font-weight: bold; font-size:12px;"
     role="alert"
     :class="`alert bg-red-500 border-none text-white`"
   >

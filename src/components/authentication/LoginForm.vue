@@ -1,63 +1,88 @@
 <template>
-  <div class="signup-form">
-    <form @submit.prevent="">
-      <div class="header-wrapper">
-        <h2 class="header">Welcome back to Mubii Discovery!</h2>
-        <h3 class="header">Login Form</h3>
-      </div>
+  <div class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <!-- login container -->
+    <div class="bg-gray-200 max-w-3xl shadow-lg flex p-5 rounded-2xl">
+      <!-- login form -->
+      <div class="md:w-1/2 p-10">
+        <h1 class="font-bold text-2xl text-[#054527]">Login</h1>
+        <p class="text-sm mt-4 text-[#054527]">If you are already a member, easily log in</p>
 
-      <AppAlert type="error" message="The credentials do not match" v-if="!status" />
+       <AppAlert v-if="!status"  message="The credentials do not match."/>
+          <form action="" class="flex flex-col gap-4" @submit.prevent="">
 
-      <div class="form-group">
-        <label for="">Email</label>
-        <div class="input-group">
-          <i class="fa-solid fa-envelope"></i>
-          <input
-            type="email"
-            v-model="userData.email"
-            name="email"
-            placeholder="Enter your email..."
-          />
-        </div>
-        <small v-if="validation.email" class="text-red-500">The email field is required</small>
-      </div>
+          <input type="email" class="border p-2 mt-3 rounded-xl" placeholder="Email" v-model="userData.email" />
 
-      <div class="form-group">
-        <label for="">Password</label>
-        <div class="input-group">
-          <i class="fa-solid fa-lock"></i>
-          <input
-            type="password"
-            v-model="userData.password"
-            name="password"
-            placeholder="Enter your password..."
-          />
-        </div>
-        <small v-if="validation.password" class="text-red-500">The password field is required</small>
-      </div>
-
-      <div class="form-group button-group">
-        <button type="submit" @click="loginProcess()" class="btn focus:ring-4 focus:ring-green-900 focus:outline-none">Login</button>
-        <span style="margin-bottom: 1.2em; color: gray"> or </span>
-        <div class="btn-wrapper">
-          <button type="button" @click.prevent="socialLogin('google')" class="google social-btn">
-            <i class="fa-brands fa-google"></i>
+          <small v-if="validation.email" class="duration-300 text-red-600"
+            >The email field is required.</small
+          >
+          <div class="relative">
+            <input type="password" class="w-full border p-2 rounded-xl" placeholder="Password" v-model="userData.password" />
+            <i class="fa-solid fa-eye absolute right-3 top-1/2 -translate-y-1/2 text-gray-700"></i>
+          </div>
+          <small v-if="validation.password" class="duration-300 text-red-600"
+            >The password field is required.</small
+          >
+          <button
+            class="bg-[#054527] text-white p-2 rounded-xl border-2 duration-300 cursor-pointer outline-none focus:ring-2 focus:ring-[#054527] hover:text-[#054527] hover:bg-white hover:border-[#054527]"
+            @click="loginProcess()"
+          >
+            Login
           </button>
-          <button type="button" @click.prevent="socialLogin('github')" class="github social-btn">
-            <i class="fa-brands fa-github"></i>
-          </button>
-        </div>
-      </div>
+        </form>
 
-      <div class="login-group">
-        <span style="margin-right: 5px; color: black">Don't have an account yet?</span>
-        <div>
-          <a href="/signup">
-            <p>Register</p>
-          </a>
+        <div class="mt-5 grid grid-cols-3 items-center text-gray-500">
+          <hr class="border-gray-500" />
+          <p class="text-center">or</p>
+          <hr class="border-gray-500" />
         </div>
+
+        <!-- social login -->
+
+        <button
+          class="flex items-center justify-center gap-5 bg-white cursor-pointer p-2 w-full mt-5 rounded-xl border-2 duration-300 border-white hover:border-black"
+          @click="socialLogin('google')"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="25"
+            height="25"
+            viewBox="0 0 48 48"
+          >
+            <path
+              fill="#FFC107"
+              d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+            ></path>
+            <path
+              fill="#FF3D00"
+              d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+            ></path>
+            <path
+              fill="#4CAF50"
+              d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+            ></path>
+            <path
+              fill="#1976D2"
+              d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+            ></path>
+          </svg>
+          Continue with Google
+        </button>
+
+        <button
+          class="flex items-center justify-center gap-5 bg-black cursor-pointer text-white p-2 w-full mt-3 rounded-xl duration-300 border-2 hover:bg-white hover:text-black hover:border-black"
+          @click="socialLogin('github')"
+        >
+          <i class="fa-brands fa-github"></i>
+          Continue with Github
+        </button>
       </div>
-    </form>
+      <!-- image -->
+      <div class="md:block hidden w-1/2">
+        <img src="./url/MubiiDiscoveryLogo.png" class="rounded-xl" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -76,7 +101,7 @@ const userData = ref({
   email: '',
   password: '',
 })
-
+console.log(userData.value.email)
 const status = ref(true)
 
 const validation = ref({
@@ -110,37 +135,6 @@ const socialLogin = async (provider) => {
 </script>
 
 <style scoped>
-.header {
-  margin-bottom: 0.5em;
-  text-align: center;
-}
-
-.signup-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.signup-form form {
-  display: flex;
-  flex-direction: column;
-
-  padding: 1.2em 2em;
-  max-width: 500px;
-  width: 100%;
-  border-radius: 15px;
-
-  box-shadow:
-    rgba(0, 0, 0, 0.25) 0px 54px 55px,
-    rgba(0, 0, 0, 0.12) 0px -12px 30px,
-    rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px,
-    rgba(0, 0, 0, 0.09) 0px -3px 5px;
-
-  color: var(--sidebar-bg-color);
-  background-color: white;
-}
 .form-group {
   margin-bottom: 2em;
 }
@@ -202,8 +196,8 @@ const socialLogin = async (provider) => {
   transition: 0.2s ease-in-out;
 }
 .btn-wrapper .social-btn:hover,
-.social-btn:focus{
-  outline:none;
+.social-btn:focus {
+  outline: none;
   background-color: var(--sidebar-bg-color);
   color: white;
 }
