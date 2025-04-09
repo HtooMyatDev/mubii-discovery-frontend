@@ -19,7 +19,7 @@
             placeholder="Enter your email..."
           />
         </div>
-        <small v-if="validation.email" class="text-error">The email field is required</small>
+        <small v-if="validation.email" class="text-red-500">The email field is required</small>
       </div>
 
       <div class="form-group">
@@ -33,11 +33,11 @@
             placeholder="Enter your password..."
           />
         </div>
-        <small v-if="validation.password" class="text-error">The password field is required</small>
+        <small v-if="validation.password" class="text-red-500">The password field is required</small>
       </div>
 
       <div class="form-group button-group">
-        <button type="submit" @click="loginProcess()" class="btn">Login</button>
+        <button type="submit" @click="loginProcess()" class="btn focus:ring-4 focus:ring-green-900 focus:outline-none">Login</button>
         <span style="margin-bottom: 1.2em; color: gray"> or </span>
         <div class="btn-wrapper">
           <button type="button" @click.prevent="socialLogin('google')" class="google social-btn">

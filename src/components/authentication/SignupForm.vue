@@ -12,7 +12,7 @@
           <i class="fa-solid fa-user"></i>
           <input type="text" name="name" placeholder="Enter your name..." v-model="userData.name" />
         </div>
-        <small v-if="validation.name" class="text-error">The name field is required</small>
+        <small v-if="validation.name" class="text-red-500">The name field is required</small>
       </div>
 
       <div class="form-group">
@@ -27,7 +27,7 @@
             v-model="userData.email"
           />
         </div>
-        <small v-if="validation.email" class="text-error">The email field is required</small>
+        <small v-if="validation.email" class="text-red-500">The email field is required</small>
       </div>
 
       <div class="form-group">
@@ -42,7 +42,9 @@
             v-model="userData.password"
           />
         </div>
-        <small v-if="validation.password" class="text-error">The password field is required</small>
+        <small v-if="validation.password" class="text-red-500"
+          >The password field is required</small
+        >
       </div>
 
       <div class="form-group">
@@ -57,14 +59,20 @@
             v-model="userData.confirmPassword"
           />
         </div>
-        <small v-if="validation.confirmPassword" class="text-error"
+        <small v-if="validation.confirmPassword" class="text-red-500"
           >The password confirmation field is required.</small
         >
         <br />
       </div>
 
       <div class="form-group">
-        <button type="submit" class="btn" @click="register()">Register</button>
+        <button
+          type="submit"
+          class="btn focus:ring-4 focus:ring-green-900 focus:outline-none"
+          @click="register()"
+        >
+          Register
+        </button>
       </div>
 
       <div class="login-group">
@@ -81,7 +89,7 @@
 
 <script setup>
 import axios from 'axios'
-import { ref} from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import AppAlert from '../AppAlert.vue'
 import { useUserStore } from '../../store/store'
@@ -134,8 +142,7 @@ const register = () => {
         router.push({ name: 'home' })
       })
       .catch((error) => {
-        console.error(error)
-        alert('Registration failed!')
+        router.push({ path: '/social-login-failure', query: { error: 'This email is already associated with the existing account.' } })
       })
   } else {
     emptyFields()

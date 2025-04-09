@@ -2,7 +2,7 @@
   <div
     style="padding: 12px; margin: 15px 0; font-weight: bold"
     role="alert"
-    :class="`alert alert-${props.type} text-white`"
+    :class="`alert bg-red-500 border-none text-white`"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"

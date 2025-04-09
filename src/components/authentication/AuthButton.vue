@@ -2,15 +2,15 @@
   <div class="authbar">
     <span class="" v-if="!isLogin">
       <a href="/login">
-        <button class="btn">Login</button>
+        <button class="btn border-2 bg-white dark:border-bg">Login</button>
       </a>
       <a href="/signup">
-        <button class="btn">Sign Up</button>
+        <button class="btn ">Sign Up</button>
       </a>
     </span>
     <span v-else>
       <a href="">
-        <button @click="handleLogout()" class="btn">Logout</button>
+        <button @click="handleLogout()" class="btn ">Logout</button>
       </a>
     </span>
   </div>
@@ -46,15 +46,12 @@ const handleLogout = ()=>{
   position: relative;
   cursor: pointer;
   overflow: hidden;
-  border: 2px solid var(--button-bg-color);
-  background: white;
   z-index: 1;
   margin: 8px;
 
   font-size: 17px;
   border-radius: 6px;
   font-weight: 500;
-  color: var(--button-bg-color);
 }
 
 .btn:before {

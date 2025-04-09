@@ -12,7 +12,7 @@
         </h5>
       </a>
       <p class="mb-5 font-normal text-gray-500 dark:text-gray-400 text-center">
-        {{ error }}. Please try again.
+        {{ error }} Please try again.
       </p>
       <a
         href="/login"

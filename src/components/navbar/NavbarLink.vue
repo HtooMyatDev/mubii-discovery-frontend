@@ -14,7 +14,7 @@ import { collapsed } from './state'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 
-const props = defineProps(['to', 'icon'])
+const props = defineProps(['to', 'icon', 'class'])
 const route = useRoute()
 const isActive = computed(() => route.path === props.to)
 </script>
