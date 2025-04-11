@@ -7,7 +7,7 @@
         <h1 class="font-bold text-2xl text-[#054527]">Login</h1>
         <p class="text-sm mt-4 text-[#054527]">If you are already a member, easily log in</p>
 
-       <AppAlert v-if="!status"  message="The credentials do not match."/>
+       <AppAlert v-if="!status"    message="The credentials do not match."/>
           <form action="" class="flex flex-col gap-4" @submit.prevent="">
 
           <input type="email" class="border p-2 mt-3 rounded-xl" placeholder="Email" v-model="userData.email" />
@@ -81,6 +81,8 @@
       <!-- image -->
       <div class="md:block hidden w-1/2">
         <img src="./url/MubiiDiscoveryLogo.png" class="rounded-xl" />
+        <p class="text-md mt-5 text-center">Haven't made an account yet? <a class="text-[#054527] font-semibold register-link" href="/signup">Register</a></p>
+
       </div>
     </div>
   </div>
@@ -134,127 +136,3 @@ const socialLogin = async (provider) => {
 }
 </script>
 
-<style scoped>
-.form-group {
-  margin-bottom: 2em;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5em;
-  font-weight: 800;
-}
-.form-group input {
-  width: 100%;
-  padding: 12px 10px;
-  border: none;
-  outline: none;
-  transition: 0.5s ease;
-}
-
-.form-group input::placeholder {
-  opacity: 0.5;
-  font-weight: 600;
-}
-
-.input-group:focus-within {
-  border-bottom: 2px solid var(--sidebar-bg-color);
-  transition: 0.5s ease;
-  box-shadow:
-    rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
-    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-}
-.input-group {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 5px 10px;
-  border-radius: 12px;
-  border: 2px solid white;
-  transition: 0.5s ease;
-
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-}
-.btn-wrapper {
-  display: flex;
-  justify-content: center;
-  gap: 0.5em;
-}
-
-.btn-wrapper .social-btn {
-  background-color: white;
-  color: var(--sidebar-bg-color);
-
-  border: 2px solid var(--sidebar-bg-color);
-  border-radius: 15px;
-
-  cursor: pointer;
-
-  padding: 15px 45px;
-  width: 100%;
-  font-size: 1.1em;
-  transition: 0.2s ease-in-out;
-}
-.btn-wrapper .social-btn:hover,
-.social-btn:focus {
-  outline: none;
-  background-color: var(--sidebar-bg-color);
-  color: white;
-}
-
-.login-group {
-  display: flex;
-  justify-content: center;
-}
-
-.button-group {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-group p {
-  color: var(--sidebar-bg-color);
-  font-weight: 600;
-
-  margin-inline: auto;
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 12px solid var(--sidebar-bg-color);
-
-  animation: typing 2s steps(9) forwards;
-}
-
-@keyframes typing {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 100%;
-  }
-}
-
-.btn {
-  background-color: white;
-  color: var(--sidebar-bg-color);
-
-  border: 2px solid var(--sidebar-bg-color);
-  border-radius: 12px;
-
-  cursor: pointer;
-
-  padding: 12px 10px;
-  margin-bottom: 1.2em;
-  width: 100%;
-  font-size: 15px;
-  transition: 0.2s ease-in-out;
-}
-
-.btn:hover,
-.btn:focus {
-  background-color: var(--sidebar-bg-color);
-  color: white;
-}
-</style>

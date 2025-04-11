@@ -1,89 +1,178 @@
 <template>
-  <div class="signup-form">
-    <form @submit.prevent="">
-      <div class="header-wrapper">
-        <h2 class="header">Welcome to Mubii Discovery!</h2>
-        <h3 class="header">Register Form</h3>
-      </div>
-      <div class="form-group">
-        <label for="">Name</label>
+  <div class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-gray-200 max-w-4xl shadow-lg p-5 rounded-2xl flex gap-5">
+      <!-- signup form -->
+      <div class="md:w-1/2 p-10">
+        <h1 class="font-bold text-2xl text-[#054527]">Register</h1>
+        <p class="text-[#054527] text-sm mt-4">
+          If you are a new user, register now to get the features
+        </p>
 
-        <div class="input-group">
-          <i class="fa-solid fa-user"></i>
-          <input type="text" name="name" placeholder="Enter your name..." v-model="userData.name" />
+        <form action="" @submit.prevent="" class="flex flex-col gap-4 mt-3">
+          <div class="">
+            <div class="relative">
+              <input
+                type="text"
+                placeholder="Name"
+                class="w-full border p-2 rounded-xl"
+                v-model="userData.name"
+              />
+              <i class="fas fa-user absolute right-3 top-1/2 -translate-y-1/2 text-gray-700"></i>
+            </div>
+            <small v-if="validation.name" class="text-red-600" style="font-size: 12px"
+              >The name field is required</small
+            >
+          </div>
+          <div class="">
+            <div class="relative">
+              <input
+                type="email"
+                placeholder="Email"
+                class="w-full border p-2 mt-1 rounded-xl"
+                v-model="userData.email"
+              />
+              <i
+                class="fas fa-envelope absolute right-3 top-1/2 -translate-y-1/2 text-gray-700"
+              ></i>
+            </div>
+            <small v-if="validation.email" class="text-red-600" style="font-size: 12px"
+              >The email field is required</small
+            >
+          </div>
+          <div class="">
+            <div class="relative">
+              <input
+                type="password"
+                class="w-full border p-2 rounded-xl"
+                placeholder="Password"
+                v-model="userData.password"
+              />
+              <i
+                class="fa-solid fa-lock absolute right-3 top-1/2 -translate-y-1/2 text-gray-700"
+              ></i>
+            </div>
+            <small v-if="validation.password" class="text-red-600" style="font-size: 12px"
+              >The password field is required</small
+            >
+          </div>
+          <div class="">
+            <div class="relative">
+              <input
+                type="password"
+                placeholder="Confirm password"
+                class="w-full border p-2 mt-1 rounded-xl"
+                v-model="userData.confirmPassword"
+              />
+              <i class="fas fa-lock absolute right-3 top-1/2 -translate-y-1/2 text-gray-700"></i>
+            </div>
+            <small v-if="validation.confirmPassword" class="text-red-600" style="font-size: 12px"
+              >The confirm password field is required</small
+            >
+            <small v-if="!validation.confirmPassword && validation.samePassword" class="text-red-600"
+              >The password and confirm password must be the same</small
+            >
+          </div>
+          <button
+            @click="register()"
+            class="bg-[#054527] text-white p-2 rounded-xl border-2 duration-300 cursor-pointer hover:bg-white hover:border-[#054527] hover:text-[#054527] outline-none focus:ring-2 focus:ring-[#054527]"
+          >
+            Register
+          </button>
+        </form>
+
+        <div class="mt-5 grid grid-cols-3 items-center text-gray-500">
+          <hr class="border-gray-500" />
+          <p class="text-center">or</p>
+          <hr class="border-gray-500" />
         </div>
-        <small v-if="validation.name" class="text-red-500">The name field is required</small>
-      </div>
 
-      <div class="form-group">
-        <label for="">Email</label>
+        <!-- social login -->
 
-        <div class="input-group">
-          <i class="fa-solid fa-envelope"></i>
-          <input
-            type="email"
-            name="email"
-            placeholder="Enter your email..."
-            v-model="userData.email"
-          />
-        </div>
-        <small v-if="validation.email" class="text-red-500">The email field is required</small>
-      </div>
-
-      <div class="form-group">
-        <label for="">Password</label>
-
-        <div class="input-group">
-          <i class="fa-solid fa-lock"></i>
-          <input
-            type="password"
-            name="password"
-            placeholder="Enter your password..."
-            v-model="userData.password"
-          />
-        </div>
-        <small v-if="validation.password" class="text-red-500"
-          >The password field is required</small
-        >
-      </div>
-
-      <div class="form-group">
-        <label for="">Confirm Password</label>
-
-        <div class="input-group">
-          <i class="fa-solid fa-lock"></i>
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Enter your password again..."
-            v-model="userData.confirmPassword"
-          />
-        </div>
-        <small v-if="validation.confirmPassword" class="text-red-500"
-          >The password confirmation field is required.</small
-        >
-        <br />
-      </div>
-
-      <div class="form-group">
         <button
-          type="submit"
-          class="btn focus:ring-4 focus:ring-green-900 focus:outline-none"
-          @click="register()"
+          class="flex items-center justify-center gap-5 bg-white cursor-pointer p-2 w-full mt-5 rounded-xl border-2 duration-300 border-white hover:border-black"
+          @click="socialLogin('google')"
         >
-          Register
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            x="0px"
+            y="0px"
+            width="25"
+            height="25"
+            viewBox="0 0 48 48"
+          >
+            <path
+              fill="#FFC107"
+              d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+            ></path>
+            <path
+              fill="#FF3D00"
+              d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+            ></path>
+            <path
+              fill="#4CAF50"
+              d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+            ></path>
+            <path
+              fill="#1976D2"
+              d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+            ></path>
+          </svg>
+          Continue with Google
+        </button>
+
+        <button
+          class="flex items-center justify-center gap-5 bg-black cursor-pointer text-white p-2 w-full mt-3 rounded-xl duration-300 border-2 hover:bg-white hover:text-black hover:border-black"
+          @click="socialLogin('github')"
+        >
+          <i class="fa-brands fa-github"></i>
+          Continue with Github
         </button>
       </div>
 
-      <div class="login-group">
-        <span style="margin-right: 5px; color: black">Already have an account?</span>
-        <div>
-          <a href="/login">
-            <p>Login</p>
-          </a>
+      <!-- features for signing up -->
+      <div class="md:block hidden w-1/2">
+        <div class="bg-[#054527] flex flex-col rounded-xl justify-center items-center p-4 gap-3">
+          <h1 class="text-white font-bold text-xl">Features</h1>
+          <div
+            class="w-full bg-white text-[#054527] border-2 p-2 shadow-sm shadow-white flex gap-3 items-center justify-start"
+          >
+            <i class="fa-solid fa-star"></i>
+            <p>Give a rating to movies</p>
+          </div>
+
+          <div
+            class="w-full bg-white text-[#054527] border-2 p-2 shadow-sm shadow-white flex gap-3 items-center justify-start"
+          >
+            <i class="fa-solid fa-bookmark"></i>
+            <p>Add to watch-list</p>
+          </div>
+
+          <div
+            class="bg-white w-full text-[#054527] border-2 p-2 shadow-sm flex gap-3 items-center shadow-white justify-start"
+          >
+            <i class="fa-solid fa-comments"></i>
+            <p>Comment & reply</p>
+          </div>
+
+          <div
+            class="bg-white w-full text-[#054527] border-2 p-2 shadow-sm shadow-white flex items-center gap-3 justify-start"
+          >
+            <i class="fa-solid fa-thumbs-up"></i>
+            <p>Give a review to movies</p>
+          </div>
+
+          <div
+            class="bg-white text-[#054527] border-2 w-full p-2 shadow-sm shadow-white flex items-center gap-3 justify-start"
+          >
+            <i class="fa-solid fa-hand-holding-hand"></i>
+            <p>Movie recommendations for you</p>
+          </div>
         </div>
+        <p class="text-center mt-5 text-md">
+          Already have an account? <a href="/login" class="font-semibold text-[#054527]">Login</a>
+        </p>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -142,131 +231,13 @@ const register = () => {
         router.push({ name: 'home' })
       })
       .catch((error) => {
-        router.push({ path: '/social-login-failure', query: { error: 'This email is already associated with the existing account.' } })
+        router.push({
+          path: '/social-login-failure',
+          query: { error: 'This email is already associated with the existing account.' },
+        })
       })
   } else {
     emptyFields()
   }
 }
 </script>
-
-<style scoped>
-.header {
-  margin-bottom: 0.5em;
-  text-align: center;
-}
-
-.signup-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.signup-form form {
-  display: flex;
-  flex-direction: column;
-
-  padding: 1.2em 2em;
-  max-width: 500px;
-  width: 100%;
-  border-radius: 15px;
-
-  box-shadow:
-    rgba(0, 0, 0, 0.25) 0px 54px 55px,
-    rgba(0, 0, 0, 0.12) 0px -12px 30px,
-    rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px,
-    rgba(0, 0, 0, 0.09) 0px -3px 5px;
-
-  color: var(--sidebar-bg-color);
-  background-color: white;
-}
-.form-group {
-  margin-bottom: 1em;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5em;
-  font-weight: 800;
-}
-.form-group input {
-  width: 100%;
-  padding: 12px 10px;
-  border: none;
-  outline: none;
-}
-
-.form-group input::placeholder {
-  opacity: 0.5;
-  font-weight: 600;
-}
-
-.input-group:focus-within {
-  border-bottom: 2px solid var(--sidebar-bg-color);
-  transition: 0.5s ease;
-  box-shadow:
-    rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
-    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-}
-
-.input-group {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px 10px;
-  border-radius: 12px;
-  border: 2px solid white;
-  transition: 0.5s ease;
-
-  box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
-}
-
-.login-group {
-  display: flex;
-  justify-content: center;
-}
-
-.login-group p {
-  color: var(--sidebar-bg-color);
-  font-weight: 600;
-
-  margin-inline: auto;
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 12px solid var(--sidebar-bg-color);
-
-  animation: typing 2s steps(7) forwards;
-}
-
-@keyframes typing {
-  from {
-    width: 0;
-  }
-
-  to {
-    width: 100%;
-  }
-}
-.btn {
-  background-color: white;
-  color: var(--sidebar-bg-color);
-
-  border: 2px solid var(--sidebar-bg-color);
-  border-radius: 12px;
-
-  cursor: pointer;
-
-  padding: 12px 10px;
-  width: 100%;
-  font-size: 15px;
-  transition: 0.2s ease-in-out;
-}
-
-.btn:hover,
-.btn:focus {
-  background-color: var(--sidebar-bg-color);
-  color: white;
-}
-</style>
