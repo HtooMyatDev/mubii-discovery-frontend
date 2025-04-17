@@ -68,9 +68,12 @@
             <small v-if="validation.confirmPassword" class="text-red-600" style="font-size: 12px"
               >The confirm password field is required</small
             >
-            <small v-if="!validation.confirmPassword && validation.samePassword" class="text-red-600"
+            <small
+              v-if="!validation.confirmPassword && validation.samePassword"
+              class="text-red-600"
               >The password and confirm password must be the same</small
             >
+            <!-- fix the validation and v-model the input(s) -->
           </div>
           <button
             @click="register()"
@@ -211,7 +214,7 @@ function checkFormValidation() {
   validation.value.password = userData.value.password === '' ? true : false
   validation.value.confirmPassword = userData.value.confirmPassword === '' ? true : false
   validation.value.samePassword =
-    userData.value.password === userData.value.confirmPassword ? true : false
+    (userData.value.password !== userData.value.confirmPassword) ? true : false
 }
 
 const register = () => {
@@ -220,14 +223,14 @@ const register = () => {
     !validation.value.name &&
     !validation.value.email &&
     !validation.value.password &&
-    !validation.value.confirmPassword
+    !validation.value.confirmPassword &&
+    !validation.value.samePassword
   ) {
     axios
       .post('http://localhost:8000/api/auth/register', userData.value)
       .then((response) => {
         store.setToken(response.data.token)
         store.setUserData(response.data.user)
-
         router.push({ name: 'home' })
       })
       .catch((error) => {
@@ -236,7 +239,7 @@ const register = () => {
           query: { error: 'This email is already associated with the existing account.' },
         })
       })
-  } else {
+    } else {
     emptyFields()
   }
 }
