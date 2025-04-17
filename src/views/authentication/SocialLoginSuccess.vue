@@ -53,14 +53,14 @@ const seconds = ref(5)
 let intervalId = null
 
 store.setToken(route.query.token)
-store.setUserData(route.query.data)
+store.setUserData(JSON.parse(route.query.data))
 onMounted(() => {
   intervalId = setInterval(() => {
     if (seconds.value > 0) {
       seconds.value--
     } else {
       clearInterval(intervalId)
-      router.push({name:"home"})
+      router.push({ name: 'home' })
     }
   }, 1000)
 })

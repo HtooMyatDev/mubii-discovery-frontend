@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Navbarview/>
     <h1>About</h1>
     <p>This is the about page of our application.</p>
     <p>Here you can find information about our team, mission, and values.</p>
@@ -13,7 +14,5 @@
 </template>
 
 <script setup>
-import Sidebar from '@/components/navbar/NavbarView.vue'
-import AuthButton from '@/components/authentication/AuthButton.vue'
-import { sidebarWidth } from '@/components/navbar/state'
+import Navbarview from '@/components/navbar/NavbarView.vue'
 </script>
