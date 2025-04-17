@@ -7,41 +7,40 @@
           <li
             class="cursor-pointer border transition duration-150 border-white hover:border-black hover:bg-green-600 p-2"
           >
-            <a href="/">Home</a>
+            <a href=""></a>Home
           </li>
           <li
             class="cursor-pointer border transition duration-150 border-white hover:border-black hover:bg-green-600 p-2"
           >
-            <a href="/about">About</a>
+            <a href=""></a>About
           </li>
           <li
             class="cursor-pointer border transition duration-150 border-white hover:border-black hover:bg-green-600 p-2"
           >
-            <a href="">Services</a>
+            <a href=""></a>Services
           </li>
           <li
             class="cursor-pointer border transition duration-150 border-white hover:border-black hover:bg-green-600 p-2"
           >
-            <a href="">Pricing</a>
+            <a href=""></a>Pricing
           </li>
           <li
             class="cursor-pointer border transition duration-150 border-white hover:border-black hover:bg-green-600 p-2"
           >
-            <a href="">Contact</a>
+            <a href=""></a>Contact
           </li>
         </ul>
       </div>
     </div>
     <div
-      class="cursor-pointer p-5 w-1/6 border-b-2 border-l-2 content-center flex items-center justify-center space-x-3 group hover:bg-green-600 transition duration-150 dropdown dropdown-end"
+      class="cursor-pointer p-5 w-1/6 border-b-2 border-l-2 content-center flex items-center justify-center space-x-3 hover:bg-green-600 transition duration-150 dropdown dropdown-end"
     >
-      <div v-if="store.getToken" class="flex items-center gap-5">
-        <div class="group-hover:text-white">{{ userData.name }}</div>
+      <div v-if="store.getToken">
+        <div class="">Htoo Myat Aung</div>
         <div class="">
-          <div tabindex="0" role="button" class="">
-            <div class="w-10">
+          <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+            <div class="w-10 rounded-xl">
               <img
-                class="rounded-xl"
                 alt="Tailwind CSS Navbar component"
                 src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
               />
@@ -51,10 +50,10 @@
             tabindex="0"
             class="menu menu-sm dropdown-content bg-green-700 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-            <li class="">
-              <a class="text-white hover:bg-green-800" href="/user/profile">
+            <li>
+              <a class="justify-between text-white">
                 Profile
-                <!-- <span class="badge">New</span> -->
+                <span class="badge">New</span>
               </a>
             </li>
             <li><a class="text-white hover:bg-green-800">Settings</a></li>
@@ -62,7 +61,9 @@
           </ul>
         </div>
       </div>
-      <a href="/login" v-else class="group-hover:text-white"> Sign in </a>
+      <a href="/login" v-else>
+        Sign in
+      </a>
     </div>
   </div>
 </template>
@@ -73,7 +74,6 @@ const store = useUserStore()
 const handleLogout = () => {
   store.logout()
 }
-const userData = store.userData
 </script>
 
 <style></style>
