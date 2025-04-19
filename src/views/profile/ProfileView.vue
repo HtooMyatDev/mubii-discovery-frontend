@@ -6,8 +6,8 @@
     >
       <div class="top-wrapper flex justify-center md:gap-50">
         <div class="">
-          <a href="/" class="hover:text-green-800 group">
-            <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 duration-400"></i>
+          <a href="/" class="hover:text-green-800 group text-gray-500 duration-300">
+            <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 duration-300 text-sm"></i>
             Back
           </a>
         </div>
@@ -16,17 +16,17 @@
         >
           <img :src="profileURL" class="w-full h-full object-cover" id="output" />
         </div>
-        <a href="" class="hover:text-green-800">
-          <i class="fa-solid fa-bookmark duration-400"></i> Watch list</a
+        <a href="" class="hover:text-green-800 text-gray-500 duration-300">
+          <i class="fa-solid fa-bookmark text-sm"></i> Watch list</a
         >
       </div>
       <transition name="fade" mode="out-in">
         <!-- displays only when the user chooses the view profile option -->
-        <div class="mt-5 text-center mb-20.5" v-if="picked === 'view'">
+        <div class="mt-5 text-center mb-5" v-if="picked === 'view'">
           <h2 class="text-4xl">
-            {{ userData.name }}
-            <span v-if="userData.nickname" class="text-sm font-semibold text-green-800"
-              >({{ userData.nickname }})</span
+            {{ storedData.name }}
+            <span v-if="storedData.nickname" class="text-sm font-semibold text-green-800"
+              >({{ storedData.nickname }})</span
             >
           </h2>
           <div class="w-full flex mt-3 text-gray-500 justify-center items-center gap-5">
@@ -35,9 +35,9 @@
                 <i class="fa-solid fa-location-dot text-sm"></i>
                 <h5 class="text-md">Address</h5>
               </div>
-              <p class="text-sm" v-if="userData.city">
-                {{ userData.postal_code }},
-                {{ userData.city }}
+              <p class="text-sm" v-if="storedData.city">
+                {{ storedData.postal_code }},
+                {{ storedData.city }}
               </p>
               <p v-else>-</p>
             </div>
@@ -47,8 +47,8 @@
                 <i class="fa-solid fa-envelope text-sm"></i>
                 <h5 class="text-md">Email</h5>
               </div>
-              <p class="text-sm" v-if="userData.email">
-                {{ userData.email }}
+              <p class="text-sm" v-if="storedData.email">
+                {{ storedData.email }}
               </p>
               <p v-else>-</p>
             </div>
@@ -59,7 +59,7 @@
                 <i class="fa-solid fa-phone text-sm"></i>
                 <h5 class="text-md">Ph number</h5>
               </div>
-              <p v-if="userData.phone_number" class="text-start">{{ userData.phone_number }}</p>
+              <p v-if="storedData.phone_number" class="text-start">{{ storedData.phone_number }}</p>
               <p v-else class="inline-flex justify-center">-</p>
             </div>
             <div class="w-1/2 flex flex-col items-start">
@@ -67,7 +67,7 @@
                 <i class="fa-solid fa-cake-candles text-sm"></i>
                 <h5 class="text-md">Birthday</h5>
               </div>
-              <p v-if="userData.date_of_birth">{{ userData.date_of_birth }}</p>
+              <p v-if="storedData.date_of_birth">{{ storedData.date_of_birth }}</p>
               <p v-else>-</p>
             </div>
           </div>
@@ -86,6 +86,7 @@
                   type="file"
                   class="rounded-none outline-none w-55 text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
                   @change="loadFile($event)"
+                  :value="newData.profile"
                 />
               </div>
             </div>
@@ -101,8 +102,8 @@
                 <input
                   type="text"
                   class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
-                  :value="userData.name"
                   placeholder="name..."
+                  v-model="newData.name"
                 />
               </div>
             </div>
@@ -119,8 +120,8 @@
                 <input
                   type="text"
                   class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
-                  :value="userData.city"
                   placeholder="city..."
+                  v-model="newData.address"
                 />
               </div>
             </div>
@@ -136,7 +137,7 @@
                 <input
                   type="text"
                   class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
-                  :value="userData.email"
+                  v-model="newData.email"
                 />
               </div>
             </div>
@@ -154,7 +155,7 @@
                 <input
                   type="text"
                   class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
-                  :value="userData.phone_number"
+                  v-model="newData.phone_number"
                   placeholder="phone number..."
                 />
               </div>
@@ -171,35 +172,33 @@
                 <input
                   type="text"
                   class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
-                  :value="userData.date_of_birth"
+                  v-model="newData.date_of_birth"
                   placeholder="birthday..."
                 />
               </div>
             </div>
           </div>
-          <button
-            class="w-full mt-5 bg-green-800 text-center text-white p-1.5 rounded-md hover:bg-gray-100 hover:text-green-800 border-2 hover:border-green-800 duration-300 cursor-pointer outline-none"
-          >
-            Update
-          </button>
         </div>
       </transition>
       <!-- displays when user chooses the edit profile option-->
 
-      <div class="flex gap-5 mt-5 text-sm">
-        <label
-          class="p-2 cursor-pointer rounded-md has-checked:bg-green-800 has-checked:text-white has-checked:border-black has-checked:border-1 duration-300 border-1 border-white"
-        >
-          View profile
-          <input value="view" type="radio" v-model="picked" hidden />
-        </label>
-
-        <label
-          class="p-2 cursor-pointer rounded-md has-checked:bg-green-800 has-checked:text-white has-checked:border-black has-checked:border-1 duration-300 border-1 border-white"
-        >
-          Edit profile
-          <input value="edit" type="radio" v-model="picked" hidden />
-        </label>
+      <div class="relative w-full mt-5 flex justify-center">
+        <transition name="slide-up">
+          <button
+            v-if="picked === 'view'"
+            @click="picked = 'edit'"
+            class="absolute bg-green-800 p-2 text-white shadow-sm hover:text-green-800 border-2 hover:border-green-800 hover:bg-gray-200 duration-300 rounded-xl cursor-pointer text-sm"
+          >
+            Edit Profile
+          </button>
+          <button
+            v-else-if="picked === 'edit'"
+            @click="picked = 'view'"
+            class="absolute bg-green-800 p-2 text-white shadow-sm hover:text-green-800 border-2 hover:border-green-800 hover:bg-gray-200 duration-300 rounded-xl cursor-pointer text-sm"
+          >
+            Save Profile
+          </button>
+        </transition>
       </div>
     </div>
   </div>
@@ -208,11 +207,22 @@
 <script setup>
 import { ref } from 'vue'
 import { useUserStore } from '@/store/store'
-
 const store = useUserStore()
-const userData = store.userData
+const storedData = store.userData
+
 const picked = ref('view')
-const profileURL = ref(userData.profile ? '/profile/' + userData.profile : '/profile/default.jpg')
+const profileURL = ref(
+  storedData.profile ? '/profile/' + storedData.profile : '/profile/default.jpg',
+)
+
+const newData = ref({
+  profile: storedData.profile,
+  name: storedData.name,
+  address: storedData.address,
+  email: storedData.email,
+  phone_number: storedData.phone_number,
+  date_of_birth: storedData.date_of_birth,
+})
 
 function loadFile(event) {
   var reader = new FileReader()
@@ -227,10 +237,25 @@ function loadFile(event) {
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s;
+  transition: opacity 0.3s ease-out;
 }
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+
+.slide-up-enter-active,
+.slide-up-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-up-enter-from {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.slide-up-leave-to {
+  opacity: 0;
+  transform: translateY(-50px);
 }
 </style>
