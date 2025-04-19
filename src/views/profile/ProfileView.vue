@@ -86,7 +86,6 @@
                   type="file"
                   class="rounded-none outline-none w-55 text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
                   @change="loadFile($event)"
-                  :value="newData.profile"
                 />
               </div>
             </div>
@@ -95,6 +94,7 @@
               <label class="font-medium">Name</label>
               <div class="flex">
                 <span
+                  :class="{ 'bg-red-500': validation.name, 'border-red-500': validation.name }"
                   class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2 border border-e-0 border-green-800 text-sm bg-green-800"
                 >
                   <i class="fa-solid fa-circle-user text-sm"></i>
@@ -102,10 +102,17 @@
                 <input
                   type="text"
                   class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
+                  :class="{
+                    'border-red-500': validation.name,
+                    'focus:border-red-500': validation.name,
+                  }"
                   placeholder="name..."
                   v-model="newData.name"
                 />
               </div>
+              <small class="text-red-500" v-if="validation.name"
+                >The name field cannot be empty!</small
+              >
             </div>
           </div>
           <div class="flex gap-5 w-full">
@@ -130,6 +137,7 @@
               <label class="font-medium">Email</label>
               <div class="flex">
                 <span
+                  :class="{ 'bg-red-500': validation.email, 'border-red-500': validation.email }"
                   class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2 border border-e-0 border-green-800 text-sm bg-green-800"
                 >
                   <i class="fa-solid fa-envelope text-sm"></i>
@@ -137,9 +145,17 @@
                 <input
                   type="text"
                   class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
+                  :class="{
+                    'border-red-500': validation.email,
+                    'focus:border-red-500': validation.email,
+                  }"
                   v-model="newData.email"
+                  placeholder="email..."
                 />
               </div>
+              <small class="text-red-500" v-if="validation.email"
+                >The email field cannot be empty!</small
+              >
             </div>
           </div>
 
@@ -170,8 +186,8 @@
                   <i class="fa-solid fa-calendar-days text-sm"></i>
                 </span>
                 <input
-                  type="text"
-                  class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
+                  type="date"
+                  class="rounded-none outline-none w-55 text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
                   v-model="newData.date_of_birth"
                   placeholder="birthday..."
                 />
@@ -193,7 +209,7 @@
           </button>
           <button
             v-else-if="picked === 'edit'"
-            @click="picked = 'view'"
+            @click="updateProfile()"
             class="absolute bg-green-800 p-2 text-white shadow-sm hover:text-green-800 border-2 hover:border-green-800 hover:bg-gray-200 duration-300 rounded-xl cursor-pointer text-sm"
           >
             Save Profile
@@ -207,6 +223,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useUserStore } from '@/store/store'
+import axios from 'axios'
 const store = useUserStore()
 const storedData = store.userData
 
@@ -216,6 +233,7 @@ const profileURL = ref(
 )
 
 const newData = ref({
+  id: storedData.id,
   profile: storedData.profile,
   name: storedData.name,
   address: storedData.address,
@@ -224,6 +242,30 @@ const newData = ref({
   date_of_birth: storedData.date_of_birth,
 })
 
+const validation = ref({
+  name: false,
+  email: false,
+})
+
+function updateProfile() {
+  formValidation()
+  if (!validation.value.name && !validation.value.email) {
+    axios
+      .post('http://localhost:8000/api/profile/update', newData.value)
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+}
+
+function formValidation() {
+  validation.value.name = newData.value.name === '' ? true : false
+  validation.value.email = newData.value.email === '' ? true : false
+}
+
 function loadFile(event) {
   var reader = new FileReader()
   reader.onload = function () {
@@ -231,6 +273,7 @@ function loadFile(event) {
     output.src = reader.result
   }
   reader.readAsDataURL(event.target.files[0])
+  newData.value.profile = event.target.files[0]
 }
 </script>
 
