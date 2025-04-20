@@ -6,8 +6,8 @@
     >
       <div class="top-wrapper flex justify-center md:gap-50">
         <div class="">
-          <a href="/" class="hover:text-green-800 group text-gray-500 duration-300">
-            <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 duration-300 text-sm"></i>
+          <a href="/" class="hover:text-green-800 group text-gray-500 duration-300 text-sm">
+            <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 duration-300"></i>
             Back
           </a>
         </div>
@@ -16,7 +16,7 @@
         >
           <img :src="profileURL" class="w-full h-full object-cover" id="output" />
         </div>
-        <a href="" class="hover:text-green-800 text-gray-500 duration-300">
+        <a href="" class="hover:text-green-800 text-gray-500 duration-300 text-sm">
           <i class="fa-solid fa-bookmark text-sm"></i> Watch list</a
         >
       </div>
@@ -35,9 +35,9 @@
                 <i class="fa-solid fa-location-dot text-sm"></i>
                 <h5 class="text-md">Address</h5>
               </div>
-              <p class="text-sm" v-if="storedData.city">
-                {{ storedData.postal_code }},
-                {{ storedData.city }}
+              <p class="text-sm" v-if="storedData.address">
+                {{ storedData.address }}
+                {{ storedData.postal_code }}
               </p>
               <p v-else>-</p>
             </div>
@@ -137,7 +137,10 @@
               <label class="font-medium">Email</label>
               <div class="flex">
                 <span
-                  :class="{ 'bg-red-500': validation.email, 'border-red-500': validation.email }"
+                  :class="{
+                    'bg-red-500': validation.email || validation.duplicateEmailStatus,
+                    'border-red-500': validation.email || validation.duplicateEmailStatus,
+                  }"
                   class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2 border border-e-0 border-green-800 text-sm bg-green-800"
                 >
                   <i class="fa-solid fa-envelope text-sm"></i>
@@ -146,16 +149,19 @@
                   type="text"
                   class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
                   :class="{
-                    'border-red-500': validation.email,
-                    'focus:border-red-500': validation.email,
+                    'border-red-500': validation.email || validation.duplicateEmailStatus,
+                    'focus:border-red-500': validation.email || validation.duplicateEmailStatus,
                   }"
                   v-model="newData.email"
                   placeholder="email..."
                 />
               </div>
-              <small class="text-red-500" v-if="validation.email"
-                >The email field cannot be empty!</small
-              >
+              <small class="text-red-500">
+                <span v-if="validation.email"> The email field cannot be empty! </span>
+                <span v-if="validation.duplicateEmailStatus">
+                  This email is already registered!
+                </span>
+              </small>
             </div>
           </div>
 
@@ -224,6 +230,7 @@
 import { ref } from 'vue'
 import { useUserStore } from '@/store/store'
 import axios from 'axios'
+
 const store = useUserStore()
 const storedData = store.userData
 
@@ -231,6 +238,7 @@ const picked = ref('view')
 const profileURL = ref(
   storedData.profile ? '/profile/' + storedData.profile : '/profile/default.jpg',
 )
+// fix the profile folder think about how and where to store it.
 
 const newData = ref({
   id: storedData.id,
@@ -242,18 +250,28 @@ const newData = ref({
   date_of_birth: storedData.date_of_birth,
 })
 
+
 const validation = ref({
   name: false,
   email: false,
+  duplicateEmailStatus: false,
 })
 
 function updateProfile() {
   formValidation()
   if (!validation.value.name && !validation.value.email) {
     axios
-      .post('http://localhost:8000/api/profile/update', newData.value)
+      .post('http://localhost:8000/api/profile/update', newData.value, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       .then((response) => {
-        console.log(response)
+        if (response.data.status === 'Duplicate Email') {
+          validation.value.duplicateEmailStatus = true
+        } else if (response.data.status === 'Success') {
+          store.setUserData(response.data.updatedData)
+        }
       })
       .catch((error) => {
         console.log(error)
