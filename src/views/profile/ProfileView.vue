@@ -29,9 +29,9 @@
               >({{ storedData.nickname }})</span
             >
           </h2>
-          <div class="w-full flex mt-3 text-gray-500 justify-center items-center gap-5">
-            <div class="mt-3 w-1/2 text-gray-500 flex flex-col items-start">
-              <div class="flex justify-center items-center gap-2">
+          <div class="w-100 flex p-3 text-gray-500 justify-center items-center gap-10">
+            <div class="flex flex-col w-50">
+              <div class="flex justify-center items-center gap-2 text-green-800 font-semibold">
                 <i class="fa-solid fa-location-dot text-sm"></i>
                 <h5 class="text-md">Address</h5>
               </div>
@@ -42,8 +42,8 @@
               <p v-else>-</p>
             </div>
 
-            <div class="mt-3 w-1/2 text-gray-500 flex flex-col items-start">
-              <div class="flex justify-center items-center gap-2">
+            <div class="text-gray-500 flex flex-col w-50">
+              <div class="flex justify-center items-center gap-2 text-green-800 font-semibold">
                 <i class="fa-solid fa-envelope text-sm"></i>
                 <h5 class="text-md">Email</h5>
               </div>
@@ -53,21 +53,21 @@
               <p v-else>-</p>
             </div>
           </div>
-          <div class="w-full flex mt-4 text-gray-500 justify-center items-center gap-5">
-            <div class="w-1/2 flex flex-col items-start">
-              <div class="flex items-center justify-center gap-2">
+          <div class="w-100 flex p-3 text-gray-500 justify-center items-center gap-10 ">
+            <div class=" flex flex-col w-50">
+              <div class="flex items-center justify-center gap-2 text-green-800 font-semibold">
                 <i class="fa-solid fa-phone text-sm"></i>
                 <h5 class="text-md">Ph number</h5>
               </div>
-              <p v-if="storedData.phone_number" class="text-start">{{ storedData.phone_number }}</p>
+              <p v-if="storedData.phone_number" class="text-sm">{{ storedData.phone_number }}</p>
               <p v-else class="inline-flex justify-center">-</p>
             </div>
-            <div class="w-1/2 flex flex-col items-start">
-              <div class="flex items-center justify-center gap-2">
+            <div class="flex flex-col w-50">
+              <div class="flex items-center justify-center gap-2 text-green-800 font-semibold">
                 <i class="fa-solid fa-cake-candles text-sm"></i>
                 <h5 class="text-md">Birthday</h5>
               </div>
-              <p v-if="storedData.date_of_birth">{{ storedData.date_of_birth }}</p>
+              <p v-if="storedData.date_of_birth" class="text-sm">{{ storedData.date_of_birth }}</p>
               <p v-else>-</p>
             </div>
           </div>
@@ -159,7 +159,7 @@
               <small class="text-red-500">
                 <span v-if="validation.email"> The email field cannot be empty! </span>
                 <span v-if="validation.duplicateEmailStatus">
-                  This email is already registered!
+                  {{ messages.email }}
                 </span>
               </small>
             </div>
@@ -250,11 +250,14 @@ const newData = ref({
   date_of_birth: storedData.date_of_birth,
 })
 
-
 const validation = ref({
   name: false,
   email: false,
   duplicateEmailStatus: false,
+})
+
+const messages = ref({
+  email: '',
 })
 
 function updateProfile() {
@@ -267,14 +270,17 @@ function updateProfile() {
         },
       })
       .then((response) => {
-        if (response.data.status === 'Duplicate Email') {
-          validation.value.duplicateEmailStatus = true
-        } else if (response.data.status === 'Success') {
+        if (response.data.status === true) {
           store.setUserData(response.data.updatedData)
         }
       })
       .catch((error) => {
-        console.log(error)
+
+        console.log(error.response.data.errors)
+        if (error.response.data.errors.email) {
+          messages.value.email = error.response.data.errors.email[0]
+          validation.value.duplicateEmailStatus = true
+        }
       })
   }
 }
