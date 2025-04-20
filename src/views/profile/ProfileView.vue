@@ -53,8 +53,8 @@
               <p v-else>-</p>
             </div>
           </div>
-          <div class="w-100 flex p-3 text-gray-500 justify-center items-center gap-10 ">
-            <div class=" flex flex-col w-50">
+          <div class="w-100 flex p-3 text-gray-500 justify-center items-center gap-10">
+            <div class="flex flex-col w-50">
               <div class="flex items-center justify-center gap-2 text-green-800 font-semibold">
                 <i class="fa-solid fa-phone text-sm"></i>
                 <h5 class="text-md">Ph number</h5>
@@ -260,28 +260,27 @@ const messages = ref({
   email: '',
 })
 
-function updateProfile() {
+const instance = axios.create({
+  baseURL: 'http://localhost:8000',
+  headers: {
+    'Content-Type': 'multipart/form-data',
+  },
+})
+
+const updateProfile = async () => {
   formValidation()
   if (!validation.value.name && !validation.value.email) {
-    axios
-      .post('http://localhost:8000/api/profile/update', newData.value, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then((response) => {
-        if (response.data.status === true) {
-          store.setUserData(response.data.updatedData)
-        }
-      })
-      .catch((error) => {
-
-        console.log(error.response.data.errors)
-        if (error.response.data.errors.email) {
-          messages.value.email = error.response.data.errors.email[0]
-          validation.value.duplicateEmailStatus = true
-        }
-      })
+    try {
+      const result = await instance.post('/api/profile/update', newData.value)
+      if (result.data.status === true) {
+        store.setUserData(result.data.updatedData)
+      }
+    } catch (error) {
+      if (error.response.data.errors.email) {
+        messages.value.email = error.response.data.errors.email[0]
+        validation.value.duplicateEmailStatus = true
+      }
+    }
   }
 }
 
