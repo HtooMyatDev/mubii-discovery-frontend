@@ -57,7 +57,7 @@
                 <!-- <span class="badge">New</span> -->
               </a>
             </li>
-            <li><a class="text-white hover:bg-green-800">Settings</a></li>
+            <li><a class="text-white hover:bg-green-800" href="/user/profile/password">Settings</a></li>
             <li><a class="text-white hover:bg-green-800" @click="handleLogout()">Logout</a></li>
           </ul>
         </div>

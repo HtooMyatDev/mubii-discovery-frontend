@@ -7,7 +7,7 @@
         <h1 class="font-bold text-2xl text-[#054527]">Login</h1>
         <p class="text-sm mt-4 text-[#054527]">If you are already a member, easily log in</p>
 
-       <AppAlert v-if="!status"    message="The credentials do not match."/>
+       <AppAlert v-if="!status" color="bg-red-500"  message="The credentials do not match." icon="circle-xmark"/>
           <form action="" class="flex flex-col gap-4" @submit.prevent="">
 
           <input type="email" class="border p-2 mt-3 rounded-xl" placeholder="Email" v-model="userData.email" />

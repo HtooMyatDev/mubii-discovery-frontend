@@ -74,21 +74,7 @@
         </div>
         <div class="" v-else>
           <div class="flex justify-center items-center mt-5 gap-5">
-            <div class="flex flex-col mt-3">
-              <label class="font-medium">Profile</label>
-              <div class="flex">
-                <span
-                  class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2 border border-e-0 border-green-800 text-sm bg-green-800"
-                >
-                  <i class="fa-solid fa-camera text-sm"></i>
-                </span>
-                <input
-                  type="file"
-                  class="rounded-none outline-none w-55 text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
-                  @change="loadFile($event)"
-                />
-              </div>
-            </div>
+
 
             <div class="flex flex-col mt-3">
               <label class="font-medium">Name</label>
@@ -113,6 +99,22 @@
               <small class="text-red-500" v-if="validation.name"
                 >The name field cannot be empty!</small
               >
+            </div>
+
+            <div class="flex flex-col mt-3">
+              <label class="font-medium">Profile</label>
+              <div class="flex">
+                <span
+                  class="inline-flex items-center rounded-s-lg rounded-e-0 text-white px-2 border border-e-0 border-green-800 text-sm bg-green-800"
+                >
+                  <i class="fa-solid fa-camera text-sm"></i>
+                </span>
+                <input
+                  type="file"
+                  class="text-sm file:mr-4 file:rounded-e-lg file:border-0 file:bg-gray-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-green-800 hover:file:bg-gray-100 cursor-pointer"
+                  @change="loadFile($event)"
+                />
+              </div>
             </div>
           </div>
           <div class="flex gap-5 w-full">
@@ -236,9 +238,8 @@ const storedData = store.userData
 
 const picked = ref('view')
 const profileURL = ref(
-  storedData.profile ? '/profile/' + storedData.profile : '/profile/default.jpg',
+  storedData.profile ? `http://localhost:8000${storedData.profile}` : '/profile/default.jpg',
 )
-// fix the profile folder think about how and where to store it.
 
 const newData = ref({
   id: storedData.id,
@@ -264,16 +265,19 @@ const instance = axios.create({
   baseURL: 'http://localhost:8000',
   headers: {
     'Content-Type': 'multipart/form-data',
+    'Authorization':`Bearer ${store.token}`
   },
 })
 
 const updateProfile = async () => {
+
   formValidation()
   if (!validation.value.name && !validation.value.email) {
     try {
       const result = await instance.post('/api/profile/update', newData.value)
       if (result.data.status === true) {
         store.setUserData(result.data.updatedData)
+        window.location.href = '/user/profile'
       }
     } catch (error) {
       if (error.response.data.errors.email) {
