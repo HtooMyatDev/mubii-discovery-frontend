@@ -10,12 +10,14 @@
       class="border-2 border-gray-200 focus:border-green-800 focus:ring-0 outline-none duration-300 rounded-lg p-2 disabled:border-gray-200 disabled:text-gray-500 disabled:bg-gray-200"
       :disabled="disabled"
     />
+    <small v-if="!props.status" class="text-red-500">{{ props.message }}</small>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-const props = defineProps(['label', 'placeholder', 'disabled'])
+
+const props = defineProps(['label', 'placeholder', 'disabled', 'status', 'message'])
 const emit = defineEmits(['updateValue'])
 const inputValue = ref('')
 const handleInput = (event) => {

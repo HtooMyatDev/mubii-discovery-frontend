@@ -74,8 +74,6 @@
         </div>
         <div class="" v-else>
           <div class="flex justify-center items-center mt-5 gap-5">
-
-
             <div class="flex flex-col mt-3">
               <label class="font-medium">Name</label>
               <div class="flex">
@@ -238,7 +236,7 @@ const storedData = store.userData
 
 const picked = ref('view')
 const profileURL = ref(
-  storedData.profile ? `http://localhost:8000${storedData.profile}` : '/profile/default.jpg',
+  storedData.profile ? `http://localhost:8000${storedData.profile}` : '/profile/default.jpg'
 )
 
 const newData = ref({
@@ -265,12 +263,11 @@ const instance = axios.create({
   baseURL: 'http://localhost:8000',
   headers: {
     'Content-Type': 'multipart/form-data',
-    'Authorization':`Bearer ${store.token}`
+    Authorization: `Bearer ${store.token}`,
   },
 })
 
 const updateProfile = async () => {
-
   formValidation()
   if (!validation.value.name && !validation.value.email) {
     try {

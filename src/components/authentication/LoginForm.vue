@@ -103,7 +103,7 @@ const userData = ref({
   email: '',
   password: '',
 })
-console.log(userData.value.email)
+
 const status = ref(true)
 
 const validation = ref({

@@ -16,19 +16,23 @@
           placeholder="old password..."
           :disabled="providerStatus"
           @updateValue="handleValueChange('oldPassword', $event)"
+          :status="status"
+          :message="errorMessages.oldPassword"
         />
         <PasswordInput
           label="New password"
           placeholder="new password..."
           @updateValue="handleValueChange('newPassword', $event)"
+          :status="status"
+          :message="errorMessages.newPassword"
         />
-        {{ data.newPassword }}
         <PasswordInput
           label="Confirm password"
           placeholder="confirm password..."
           @updateValue="handleValueChange('confirmPassword', $event)"
+          :status="status"
+          :message="errorMessages.confirmPassword"
         />
-        {{ data.confirmPassword }}
         <div class="flex gap-3">
           <a
             href="/"
@@ -38,6 +42,7 @@
           >
           <button
             class="w-2/3 bg-green-800 mt-6 duration-300 text-white hover:bg-green-900 p-2 rounded-lg cursor-pointer"
+            @click="changePasswordProcess()"
           >
             Change password
           </button>
@@ -52,15 +57,24 @@ import PasswordInput from '../../components/authentication/PasswordInput.vue'
 import AppAlert from '../../components/AppAlert.vue'
 import { computed, ref } from 'vue'
 import { useUserStore } from '@/store/store'
+import axios from 'axios'
+
+const status = ref(true)
+const errorMessages = ref({
+  oldPassword: '',
+  newPassword: '',
+  confirmPassword: '',
+})
 const store = useUserStore()
 const providerStatus = computed(() => {
-  return store.userData.provider != 'simple'
+  return store.userData.password == null
 })
 
 const data = ref({
   oldPassword: '',
   newPassword: '',
   confirmPassword: '',
+  userId: store.userData.id,
 })
 
 const handleValueChange = (childId, newValue) => {
@@ -72,7 +86,32 @@ const handleValueChange = (childId, newValue) => {
     data.value.confirmPassword = newValue
   }
 }
+
+const instance = axios.create({
+  baseURL: 'http://localhost:8000',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${store.token}`,
+  },
+})
+
+const changePasswordProcess = async () => {
+  try {
+    const result = await instance.post('/api/profile/change/password', data.value)
+    console.log(result)
+  } catch (error) {
+    errorMessages.value.oldPassword = error.response.data.error.oldPassword
+      ? error.response.data.error.oldPassword[0]
+      : ''
+    errorMessages.value.newPassword = error.response.data.error.newPassword
+      ? error.response.data.error.newPassword[0]
+      : ''
+    errorMessages.value.confirmPassword = error.response.data.error.confirmPassword
+      ? error.response.data.error.confirmPassword[0]
+      : ''
+    status.value = error.response.data.status
+  }
+}
 </script>
 
-<style>
-</style>
+<style></style>
