@@ -45,6 +45,11 @@ const router = createRouter({
       path: '/user/profile/password',
       name: 'ChangePassword',
       component: () => import('../views/profile/PasswordPage.vue')
+    },
+    {
+      path: '/password-change-success',
+      name: 'ChangePasswordSuccess',
+      component: () => import('../views/authentication/PasswordChangeSuccess.vue')
     }
   ],
 })

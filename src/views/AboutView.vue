@@ -14,5 +14,5 @@
 </template>
 
 <script setup>
-import Navbarview from '@/components/navbar/NavbarView.vue'
+import Navbarview from '@/components/navbar/SidebarView.vue'
 </script>

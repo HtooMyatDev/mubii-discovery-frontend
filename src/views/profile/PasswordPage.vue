@@ -98,7 +98,7 @@ const instance = axios.create({
 const changePasswordProcess = async () => {
   try {
     const result = await instance.post('/api/profile/change/password', data.value)
-    console.log(result)
+    window.location.href = '/password-change-success'
   } catch (error) {
     errorMessages.value.oldPassword = error.response.data.error.oldPassword
       ? error.response.data.error.oldPassword[0]
@@ -113,5 +113,3 @@ const changePasswordProcess = async () => {
   }
 }
 </script>
-
-<style></style>
