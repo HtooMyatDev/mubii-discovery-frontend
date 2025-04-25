@@ -214,7 +214,7 @@ function checkFormValidation() {
   validation.value.password = userData.value.password === '' ? true : false
   validation.value.confirmPassword = userData.value.confirmPassword === '' ? true : false
   validation.value.samePassword =
-    (userData.value.password !== userData.value.confirmPassword) ? true : false
+    userData.value.password !== userData.value.confirmPassword ? true : false
 }
 
 const register = () => {
@@ -231,6 +231,8 @@ const register = () => {
       .then((response) => {
         store.setToken(response.data.token)
         store.setUserData(response.data.user)
+        store.setMovieData(response.data.movie)
+
         router.push({ name: 'home' })
       })
       .catch((error) => {
@@ -239,7 +241,7 @@ const register = () => {
           query: { error: 'This email is already associated with the existing account.' },
         })
       })
-    } else {
+  } else {
     emptyFields()
   }
 }

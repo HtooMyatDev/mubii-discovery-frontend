@@ -10,47 +10,54 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/about',
-      name: 'about',
+      path: '/movies',
+      name: 'movies',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
+      component: () => import('../views/MoviesView.vue'),
+    },
+    {
+      path: '/movie/:id/details/',
+      name: 'movieDetails',
+      props: true,
+      component: () => import('../views/movie/DetailsView.vue'),
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('../views/authentication/LoginView.vue')
-    }, {
+      component: () => import('../views/authentication/LoginView.vue'),
+    },
+    {
       path: '/signup',
       name: 'signup',
-      component: () => import('../views/authentication/SignupView.vue')
+      component: () => import('../views/authentication/SignupView.vue'),
     },
     {
       path: '/social-login-success',
       name: 'SocialLoginSuccess',
-      component: () => import('../views/authentication/SocialLoginSuccess.vue')
+      component: () => import('../views/authentication/SocialLoginSuccess.vue'),
     },
     {
       path: '/social-login-failure',
       name: 'SocialLoginFailure',
-      component: () => import('../views/authentication/SocialLoginError.vue')
+      component: () => import('../views/authentication/SocialLoginError.vue'),
     },
     {
       path: '/user/profile',
       name: 'UserProfile',
-      component: () => import('../views/profile/ProfileView.vue')
+      component: () => import('../views/profile/ProfileView.vue'),
     },
     {
       path: '/user/profile/password',
       name: 'ChangePassword',
-      component: () => import('../views/profile/PasswordPage.vue')
+      component: () => import('../views/profile/PasswordPage.vue'),
     },
     {
       path: '/password-change-success',
       name: 'ChangePasswordSuccess',
-      component: () => import('../views/authentication/PasswordChangeSuccess.vue')
-    }
+      component: () => import('../views/authentication/PasswordChangeSuccess.vue'),
+    },
   ],
 })
 

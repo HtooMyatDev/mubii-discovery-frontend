@@ -1,12 +1,12 @@
 <template>
   <div class="h-screen w-full flex flex-col items-center">
-    <div class="bg-green-800 shadow-xl h-1/3 w-full"></div>
+    <div class="bg-amber-800 shadow-xl h-1/3 w-full"></div>
     <div
       class="wrapper w-1/2 h-130 shadow-lg bg-white rounded-lg -mt-25 pt-15 flex flex-col items-center"
     >
       <div class="top-wrapper flex justify-center md:gap-50">
         <div class="">
-          <a href="/" class="hover:text-green-800 group text-gray-500 duration-300 text-sm">
+          <a href="/" class="hover:text-amber-800 group text-gray-500 duration-300 text-sm">
             <i class="fa-solid fa-arrow-left group-hover:-translate-x-1 duration-300"></i>
             Back
           </a>
@@ -16,7 +16,7 @@
         >
           <img :src="profileURL" class="w-full h-full object-cover" id="output" />
         </div>
-        <a href="" class="hover:text-green-800 text-gray-500 duration-300 text-sm">
+        <a href="" class="hover:text-amber-800 text-gray-500 duration-300 text-sm">
           <i class="fa-solid fa-bookmark text-sm"></i> Watch list</a
         >
       </div>
@@ -25,13 +25,13 @@
         <div class="mt-5 text-center mb-5" v-if="picked === 'view'">
           <h2 class="text-4xl">
             {{ storedData.name }}
-            <span v-if="storedData.nickname" class="text-sm font-semibold text-green-800"
+            <span v-if="storedData.nickname" class="text-sm font-semibold text-amber-800"
               >({{ storedData.nickname }})</span
             >
           </h2>
           <div class="w-100 flex p-3 text-gray-500 justify-center items-center gap-10">
             <div class="flex flex-col w-50">
-              <div class="flex justify-center items-center gap-2 text-green-800 font-semibold">
+              <div class="flex justify-center items-center gap-2 text-amber-800 font-semibold">
                 <i class="fa-solid fa-location-dot text-sm"></i>
                 <h5 class="text-md">Address</h5>
               </div>
@@ -43,7 +43,7 @@
             </div>
 
             <div class="text-gray-500 flex flex-col w-50">
-              <div class="flex justify-center items-center gap-2 text-green-800 font-semibold">
+              <div class="flex justify-center items-center gap-2 text-amber-800 font-semibold">
                 <i class="fa-solid fa-envelope text-sm"></i>
                 <h5 class="text-md">Email</h5>
               </div>
@@ -55,7 +55,7 @@
           </div>
           <div class="w-100 flex p-3 text-gray-500 justify-center items-center gap-10">
             <div class="flex flex-col w-50">
-              <div class="flex items-center justify-center gap-2 text-green-800 font-semibold">
+              <div class="flex items-center justify-center gap-2 text-amber-800 font-semibold">
                 <i class="fa-solid fa-phone text-sm"></i>
                 <h5 class="text-md">Ph number</h5>
               </div>
@@ -63,7 +63,7 @@
               <p v-else class="inline-flex justify-center">-</p>
             </div>
             <div class="flex flex-col w-50">
-              <div class="flex items-center justify-center gap-2 text-green-800 font-semibold">
+              <div class="flex items-center justify-center gap-2 text-amber-800 font-semibold">
                 <i class="fa-solid fa-cake-candles text-sm"></i>
                 <h5 class="text-md">Birthday</h5>
               </div>
@@ -79,13 +79,13 @@
               <div class="flex">
                 <span
                   :class="{ 'bg-red-500': validation.name, 'border-red-500': validation.name }"
-                  class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2 border border-e-0 border-green-800 text-sm bg-green-800"
+                  class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2 border border-e-0 border-amber-800 text-sm bg-amber-800"
                 >
                   <i class="fa-solid fa-circle-user text-sm"></i>
                 </span>
                 <input
                   type="text"
-                  class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
+                  class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-amber-800 focus:border-amber-800"
                   :class="{
                     'border-red-500': validation.name,
                     'focus:border-red-500': validation.name,
@@ -103,13 +103,13 @@
               <label class="font-medium">Profile</label>
               <div class="flex">
                 <span
-                  class="inline-flex items-center rounded-s-lg rounded-e-0 text-white px-2 border border-e-0 border-green-800 text-sm bg-green-800"
+                  class="inline-flex items-center rounded-s-lg rounded-e-0 text-white px-2 border border-e-0 border-amber-800 text-sm bg-amber-800"
                 >
                   <i class="fa-solid fa-camera text-sm"></i>
                 </span>
                 <input
                   type="file"
-                  class="text-sm file:mr-4 file:rounded-e-lg file:border-0 file:bg-gray-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-green-800 hover:file:bg-gray-100 cursor-pointer"
+                  class="text-sm file:mr-4 file:rounded-e-lg file:border-0 file:bg-gray-50 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-amber-800 hover:file:bg-gray-100 cursor-pointer"
                   @change="loadFile($event)"
                 />
               </div>
@@ -120,13 +120,13 @@
               <label class="font-medium">Address</label>
               <div class="flex">
                 <span
-                  class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2.5 border border-e-0 border-green-800 text-sm bg-green-800"
+                  class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2.5 border border-e-0 border-amber-800 text-sm bg-amber-800"
                 >
                   <i class="fa-solid fa-location-dot text-sm"></i>
                 </span>
                 <input
                   type="text"
-                  class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
+                  class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-amber-800 focus:border-amber-800"
                   placeholder="city..."
                   v-model="newData.address"
                 />
@@ -141,13 +141,13 @@
                     'bg-red-500': validation.email || validation.duplicateEmailStatus,
                     'border-red-500': validation.email || validation.duplicateEmailStatus,
                   }"
-                  class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2 border border-e-0 border-green-800 text-sm bg-green-800"
+                  class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2 border border-e-0 border-amber-800 text-sm bg-amber-800"
                 >
                   <i class="fa-solid fa-envelope text-sm"></i>
                 </span>
                 <input
                   type="text"
-                  class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
+                  class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-amber-800 focus:border-amber-800"
                   :class="{
                     'border-red-500': validation.email || validation.duplicateEmailStatus,
                     'focus:border-red-500': validation.email || validation.duplicateEmailStatus,
@@ -170,13 +170,13 @@
               <label class="font-medium">Ph number</label>
               <div class="flex">
                 <span
-                  class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2 border border-e-0 border-green-800 text-sm bg-green-800"
+                  class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2 border border-e-0 border-amber-800 text-sm bg-amber-800"
                 >
                   <i class="fa-solid fa-phone text-sm"></i>
                 </span>
                 <input
                   type="text"
-                  class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
+                  class="rounded-none outline-none text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-amber-800 focus:border-amber-800"
                   v-model="newData.phone_number"
                   placeholder="phone number..."
                 />
@@ -187,13 +187,13 @@
               <label class="font-medium">Date of birth</label>
               <div class="flex">
                 <span
-                  class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2.5 border border-e-0 border-green-800 text-sm bg-green-800"
+                  class="inline-flex items-center rounded-s-md rounded-e-0 text-white px-2.5 border border-e-0 border-amber-800 text-sm bg-amber-800"
                 >
                   <i class="fa-solid fa-calendar-days text-sm"></i>
                 </span>
                 <input
                   type="date"
-                  class="rounded-none outline-none w-55 text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-green-800 focus:border-green-800"
+                  class="rounded-none outline-none w-55 text-sm p-1 border text-gray-700 px-2 rounded-e-md bg-gray-50 border-gray-300 focus:ring-amber-800 focus:border-amber-800"
                   v-model="newData.date_of_birth"
                   placeholder="birthday..."
                 />
@@ -209,14 +209,14 @@
           <button
             v-if="picked === 'view'"
             @click="picked = 'edit'"
-            class="absolute bg-green-800 p-2 text-white shadow-sm hover:text-green-800 border-2 hover:border-green-800 hover:bg-gray-200 duration-300 rounded-xl cursor-pointer text-sm"
+            class="absolute bg-amber-800 p-2 text-white shadow-sm hover:text-amber-800 border-2 hover:border-amber-800 hover:bg-gray-200 duration-300 rounded-xl cursor-pointer text-sm"
           >
             Edit Profile
           </button>
           <button
             v-else-if="picked === 'edit'"
             @click="updateProfile()"
-            class="absolute bg-green-800 p-2 text-white shadow-sm hover:text-green-800 border-2 hover:border-green-800 hover:bg-gray-200 duration-300 rounded-xl cursor-pointer text-sm"
+            class="absolute bg-amber-800 p-2 text-white shadow-sm hover:text-amber-800 border-2 hover:border-amber-800 hover:bg-gray-200 duration-300 rounded-xl cursor-pointer text-sm"
           >
             Save Profile
           </button>

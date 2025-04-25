@@ -54,6 +54,8 @@ let intervalId = null
 
 store.setToken(route.query.token)
 store.setUserData(JSON.parse(route.query.data))
+store.setMovieData(JSON.parse(route.query.movie))
+
 onMounted(() => {
   intervalId = setInterval(() => {
     if (seconds.value > 0) {
