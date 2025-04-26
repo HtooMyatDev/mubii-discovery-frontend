@@ -20,10 +20,10 @@
 import SidebarView from '@/components/navbar/SidebarView.vue'
 import axios from 'axios'
 import { onMounted, ref } from 'vue'
-import { useUserStore } from '@/store/store.js'
+import { useMovieStore } from '@/store/store.js'
 import { useRouter } from 'vue-router'
 
-const store = useUserStore()
+const movieStore = useMovieStore()
 const movies = ref({})
 const router = useRouter()
 
@@ -37,7 +37,7 @@ const instance = axios.create({
 const requestMovieData = async () => {
   try {
     const result = await instance.get('/api/movie/list')
-    store.setMovieData = result.data.movieData
+    movieStore.setMovieData = result.data.movieData
     movies.value = result.data.movieData
   } catch (error) {
     console.log(error)

@@ -1,6 +1,13 @@
 <template>
   <div class="bg-black h-screen">
-    <div class="text-white h-full flex flex-col justify-center items-center">
+    <div
+      class="text-white h-full w-full text-5xl flex justify-center items-center font-bold gap-5"
+      v-if="loading"
+    >
+      <i class="fa-solid fa-rotate-right fa-spin"></i>
+      Loading Data ...
+    </div>
+    <div v-else class="text-white h-full flex flex-col justify-center items-center">
       <div class="w-full h-full">
         <iframe :src="embed_link" frameborder="0" class="h-full w-full"></iframe>
       </div>
@@ -42,10 +49,13 @@
 import axios from 'axios'
 import { useRoute } from 'vue-router'
 import { onMounted, ref } from 'vue'
-import { useUserStore } from '@/store/store'
+import { useUserStore, useMovieStore } from '@/store/store'
 
-const store = useUserStore()
+const userStore = useUserStore()
+const movieStore = useMovieStore()
+
 const route = useRoute()
+
 const instance = axios.create({
   baseURL: 'http://localhost:8000',
   headers: {
@@ -56,20 +66,28 @@ const instance = axios.create({
 const data = ref({})
 const embed_link = ref()
 const genres = ref({})
-const add = ref(false)
+const add = ref()
+const loading = ref(true)
+
 const watchListData = ref({
-  userId: store.userData.id,
+  userId: userStore.userData.id,
   movieId: route.params.id,
 })
 
 const movieDetails = async () => {
   try {
-    const result = await instance.get(`/api/movie/${route.params.id}/details`)
+    const result = await instance.get(
+      `/api/movie/${route.params.id}/details/${userStore.userData.id}`
+    )
     data.value = result.data.movieData
     embed_link.value = result.data.trailerLink
     genres.value = result.data.genres
+
+    add.value = result.data.isAdded === null ? false : true
   } catch (error) {
     console.log(error)
+  } finally {
+    loading.value = false
   }
 }
 
@@ -78,7 +96,7 @@ const toggleList = async () => {
   watchListData.value.add = add.value
   try {
     const result = await instance.post('/api/movie/watchlist/toggle', watchListData.value)
-    store.setWatchListData = result.data.
+    movieStore.setWatchListData(result.data.list)
   } catch (error) {
     console.log(error)
   }

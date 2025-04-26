@@ -1,21 +1,11 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 export const useUserStore = defineStore(
   'user',
   () => {
     // State
     const userData = ref({})
     const token = ref(null)
-    const movieData = ref({})
-    const watchList = ref({})
-
-    // Getters
-    const getUserData = computed(() => {
-      return userData.value
-    })
-    const getToken = computed(() => {
-      return token.value
-    })
 
     // Actions
     const setUserData = (data) => {
@@ -23,12 +13,6 @@ export const useUserStore = defineStore(
     }
     const setToken = (data) => {
       token.value = data
-    }
-    const setMovieData = (data) => {
-      movieData.value = data
-    }
-    const setWatchListData = (data) => {
-      watchList.value = data
     }
 
     const logout = () => {
@@ -38,14 +22,37 @@ export const useUserStore = defineStore(
     return {
       userData,
       token,
-      movieData,
+
       setUserData,
       setToken,
-      setMovieData,
-      getUserData,
-      getToken,
-      setWatchListData,
+
       logout,
+    }
+  },
+  {
+    persist: true,
+  },
+)
+
+export const useMovieStore = defineStore(
+  'movie',
+  () => {
+    const watchList = ref({})
+    const movieData = ref({})
+
+    const setWatchListData = (data) => {
+      watchList.value = data
+    }
+    const setMovieData = (data) => {
+      movieData.value = data
+    }
+
+    return {
+      watchList,
+      setWatchListData,
+
+      movieData,
+      setMovieData,
     }
   },
   {

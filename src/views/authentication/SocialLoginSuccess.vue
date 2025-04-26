@@ -42,19 +42,20 @@
 </template>
 
 <script setup>
-import { useUserStore } from '@/store/store'
+import { useUserStore, useMovieStore } from '@/store/store'
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, onUnmounted, ref } from 'vue'
 
-const store = useUserStore()
+const userStore = useUserStore()
+const movieStore = useMovieStore()
 const route = useRoute()
 const router = useRouter()
 const seconds = ref(5)
 let intervalId = null
 
-store.setToken(route.query.token)
-store.setUserData(JSON.parse(route.query.data))
-store.setMovieData(JSON.parse(route.query.movie))
+userStore.setToken(route.query.token)
+userStore.setUserData(JSON.parse(route.query.data))
+movieStore.setMovieData(JSON.parse(route.query.movie))
 
 onMounted(() => {
   intervalId = setInterval(() => {
