@@ -4,26 +4,40 @@
     <div class="bg-gray-200 max-w-3xl shadow-lg flex p-5 rounded-2xl">
       <!-- login form -->
       <div class="md:w-1/2 p-10">
-        <h1 class="font-bold text-2xl text-[#054527]">Login</h1>
-        <p class="text-sm mt-4 text-[#054527]">If you are already a member, easily log in</p>
+        <h1 class="font-bold text-2xl text-amber-800">Login</h1>
+        <p class="text-sm mt-4 text-amber-800">If you are already a member, easily log in</p>
 
-       <AppAlert v-if="!status" color="bg-red-500"  message="The credentials do not match." icon="circle-xmark"/>
-          <form action="" class="flex flex-col gap-4" @submit.prevent="">
-
-          <input type="email" class="border p-2 mt-3 rounded-xl" placeholder="Email" v-model="userData.email" />
+        <AppAlert
+          v-if="!status"
+          color="bg-red-500"
+          message="The credentials do not match."
+          icon="circle-xmark"
+        />
+        <form action="" class="flex flex-col gap-4" @submit.prevent="">
+          <input
+            type="email"
+            class="border p-2 mt-3 rounded-xl"
+            placeholder="Email"
+            v-model="userData.email"
+          />
 
           <small v-if="validation.email" class="duration-300 text-red-600"
             >The email field is required.</small
           >
           <div class="relative">
-            <input type="password" class="w-full border p-2 rounded-xl" placeholder="Password" v-model="userData.password" />
+            <input
+              type="password"
+              class="w-full border p-2 rounded-xl"
+              placeholder="Password"
+              v-model="userData.password"
+            />
             <i class="fa-solid fa-eye absolute right-3 top-1/2 -translate-y-1/2 text-gray-700"></i>
           </div>
           <small v-if="validation.password" class="duration-300 text-red-600"
             >The password field is required.</small
           >
           <button
-            class="bg-[#054527] text-white p-2 rounded-xl border-2 duration-300 cursor-pointer outline-none focus:ring-2 focus:ring-[#054527] hover:text-[#054527] hover:bg-white hover:border-[#054527]"
+            class="bg-amber-700 text-white p-2 rounded-xl border-2 duration-300 cursor-pointer outline-none focus:ring-2 focus:ring-amber-800 hover:text-amber-800 hover:bg-white hover:border-amber-800"
             @click="loginProcess()"
           >
             Login
@@ -81,8 +95,10 @@
       <!-- image -->
       <div class="md:block hidden w-1/2">
         <img src="./url/MubiiDiscoveryLogo.png" class="rounded-xl" />
-        <p class="text-md mt-5 text-center">Haven't made an account yet? <a class="text-[#054527] font-semibold register-link" href="/signup">Register</a></p>
-
+        <p class="text-md mt-5 text-center">
+          Haven't made an account yet?
+          <a class="text-amber-800 font-semibold register-link" href="/signup">Register</a>
+        </p>
       </div>
     </div>
   </div>

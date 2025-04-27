@@ -17,6 +17,7 @@ export const useUserStore = defineStore(
 
     const logout = () => {
       setToken(null)
+      setUserData({})
     }
 
     return {

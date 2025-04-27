@@ -3,8 +3,8 @@
     <div class="bg-gray-200 max-w-4xl shadow-lg p-5 rounded-2xl flex gap-5">
       <!-- signup form -->
       <div class="md:w-1/2 p-10">
-        <h1 class="font-bold text-2xl text-[#054527]">Register</h1>
-        <p class="text-[#054527] text-sm mt-4">
+        <h1 class="font-bold text-2xl text-amber-700">Register</h1>
+        <p class="text-amber-700 text-sm mt-4">
           If you are a new user, register now to get the features
         </p>
 
@@ -77,7 +77,7 @@
           </div>
           <button
             @click="register()"
-            class="bg-[#054527] text-white p-2 rounded-xl border-2 duration-300 cursor-pointer hover:bg-white hover:border-[#054527] hover:text-[#054527] outline-none focus:ring-2 focus:ring-[#054527]"
+            class="bg-amber-700 text-white p-2 rounded-xl border-2 duration-300 cursor-pointer hover:bg-white hover:border-amber-700 hover:text-amber-700 outline-none focus:ring-2 focus:ring-amber-700"
           >
             Register
           </button>
@@ -134,45 +134,45 @@
 
       <!-- features for signing up -->
       <div class="md:block hidden w-1/2">
-        <div class="bg-[#054527] flex flex-col rounded-xl justify-center items-center p-4 gap-3">
+        <div class="bg-amber-700 flex flex-col rounded-xl justify-center items-center p-4 gap-3">
           <h1 class="text-white font-bold text-xl">Features</h1>
           <div
-            class="w-full bg-white text-[#054527] border-2 p-2 shadow-sm shadow-white flex gap-3 items-center justify-start"
+            class="w-full bg-white text-amber-700 border-2 p-2 shadow-sm shadow-white flex gap-3 items-center justify-start"
           >
             <i class="fa-solid fa-star"></i>
             <p>Give a rating to movies</p>
           </div>
 
           <div
-            class="w-full bg-white text-[#054527] border-2 p-2 shadow-sm shadow-white flex gap-3 items-center justify-start"
+            class="w-full bg-white text-amber-700 border-2 p-2 shadow-sm shadow-white flex gap-3 items-center justify-start"
           >
             <i class="fa-solid fa-bookmark"></i>
             <p>Add to watch-list</p>
           </div>
 
           <div
-            class="bg-white w-full text-[#054527] border-2 p-2 shadow-sm flex gap-3 items-center shadow-white justify-start"
+            class="bg-white w-full text-amber-700 border-2 p-2 shadow-sm flex gap-3 items-center shadow-white justify-start"
           >
             <i class="fa-solid fa-comments"></i>
             <p>Comment & reply</p>
           </div>
 
           <div
-            class="bg-white w-full text-[#054527] border-2 p-2 shadow-sm shadow-white flex items-center gap-3 justify-start"
+            class="bg-white w-full text-amber-700 border-2 p-2 shadow-sm shadow-white flex items-center gap-3 justify-start"
           >
             <i class="fa-solid fa-thumbs-up"></i>
             <p>Give a review to movies</p>
           </div>
 
           <div
-            class="bg-white text-[#054527] border-2 w-full p-2 shadow-sm shadow-white flex items-center gap-3 justify-start"
+            class="bg-white text-amber-700 border-2 w-full p-2 shadow-sm shadow-white flex items-center gap-3 justify-start"
           >
             <i class="fa-solid fa-hand-holding-hand"></i>
             <p>Movie recommendations for you</p>
           </div>
         </div>
         <p class="text-center mt-5 text-md">
-          Already have an account? <a href="/login" class="font-semibold text-[#054527]">Login</a>
+          Already have an account? <a href="/login" class="font-semibold text-amber-700">Login</a>
         </p>
       </div>
     </div>
@@ -183,7 +183,6 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import AppAlert from '../AppAlert.vue'
 import { useUserStore } from '../../store/store'
 
 const store = useUserStore()
@@ -236,6 +235,7 @@ const register = () => {
         router.push({ name: 'home' })
       })
       .catch((error) => {
+        console.log(error)
         router.push({
           path: '/social-login-failure',
           query: { error: 'This email is already associated with the existing account.' },
